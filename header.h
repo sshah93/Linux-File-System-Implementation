@@ -11,6 +11,8 @@
 #include <fstream>
 #include <sys/time.h>
 #include <sstream>
+#include <deque>
+#include <map>
 
 using namespace std;
 
