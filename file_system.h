@@ -1,5 +1,5 @@
-#ifndef FILE_SYSTEM_H_
-#define FILE_SYSTEM_H_
+#ifndef _FILE_SYSTEM_H_
+#define _FILE_SYSTEM_H_
 
 #include "node.h"
 #include "directory.h"
