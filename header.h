@@ -1,5 +1,5 @@
-#ifndef HEADER_H_
-#define HEADER_H_
+#ifndef _HEADER_H_
+#define _HEADER_H_
 
 #include <iostream>
 #include <stdlib.h>
