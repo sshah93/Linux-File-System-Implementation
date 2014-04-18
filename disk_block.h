@@ -1,5 +1,5 @@
-#ifndef DISK_BLOCK_H_
-#define DISK_BLOCK_H_
+#ifndef _DISK_BLOCK_H_
+#define _DISK_BLOCK_H_
 
 #include "header.h"
 
