@@ -1,5 +1,5 @@
-#ifndef BLOCK_ADDRESSES_H_
-#define BLOCK_ADDRESSES_H_
+#ifndef _BLOCK_ADDRESSES_H_
+#define _BLOCK_ADDRESSES_H_
 
 #include "header.h"
 
