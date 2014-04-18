@@ -1,5 +1,5 @@
-#ifndef DIRECTORY_H_
-#define DIRECTORY_H_
+#ifndef _DIRECTORY_H_
+#define _DIRECTORY_H_
 
 #include "header.h"
 
