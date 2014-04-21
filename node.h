@@ -9,7 +9,10 @@ protected:
 	bool hasChildren;
 
 public:
+	node();
+	virtual ~node();
 
+	const bool hasChildren();
 };
 
 #endif

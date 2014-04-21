@@ -3,10 +3,10 @@
 
 #include "header.h"
 
-class directory: public node{
-
+class directory: public node
+{
 protected:
-	vector<node> children_nodes;
+	vector<node> children_node;
 	string dir_name;
 
 public:
@@ -14,10 +14,10 @@ public:
 	virtual ~directory();
 
 	void add_child(node*);
-	const string get_name();
+	const string getName();
+	void listChildren();
 
-	vector<node*>* get_children();
-
+	vector<node*>* getChildren();
 };
 
 #endif
