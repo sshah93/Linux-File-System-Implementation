@@ -30,7 +30,7 @@ public:
 	// gets the file size
 	const int getSize();	
 
-	void setSize(const unsigned int& size);
+	void setSize(const unsigned int& mSize);
 
 	const void printInfo();
 
