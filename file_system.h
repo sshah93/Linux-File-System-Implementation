@@ -18,7 +18,7 @@ protected:
 
 	node* current_dir;
 	map<string, node*> root_dir;
-	deque<virtual_block*> block_addresses;
+	deque<virtual_block*> disk_blocks;
 
 	// creating the directory structure
 	bool build_directory_structure(const vector<string>& contents, const string& unique_name);
@@ -31,7 +31,7 @@ protected:
 	bool handle_file_request(file* file, const unsigned int& space_requested);
 
 	// dfs 
-	const void print_dir(node* root);
+	const void print_directory(node* root);
 
 public:
 
@@ -41,7 +41,7 @@ public:
 	bool initialize_directories(const string& dir_list);
 	bool initialize_files(const string& file_list);
 
-	const void print_dir();
+	const void print_directory();
 
 	bool setCurrentDir(const string& file);
 	// for ls case

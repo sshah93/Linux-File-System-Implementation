@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
 	current_dir = "/";
 
 	cout << "Total dirs: " << endl;
-	new_file_system->print_dir();
+	new_file_system->print_directory();
 
 	while(1)
 	{
