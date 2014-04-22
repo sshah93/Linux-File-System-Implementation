@@ -1,5 +1,6 @@
 #include "directory.h"
 #include "file.h"
+#include "node.h"
 
 directory::directory(const string& name):node(), dir_name(name)
 {
@@ -46,7 +47,7 @@ void directory::listChildren()
 		else
 		{
 			child_dir = dynamic_cast<file*>(children_node[i]);
-			cout << child_dir->getName() << setw(50- child_dir->getName().size()) << " size: " << pdir->get_size() <<  " bytes" << endl;
+			cout << child_dir->getName() << setw(50- child_dir->getName().size()) << " size: " << child_dir->getSize() <<  " bytes" << endl;
 		}
 	}
 }

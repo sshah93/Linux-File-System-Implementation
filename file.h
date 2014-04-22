@@ -27,11 +27,16 @@ public:
 	// gets the file name
 	const string getName();
 
+	// sets the file name
+	void  setName(string fname);
+
 	// gets the file size
 	const int getSize();	
 
+	// sets the file size
 	void setSize(const unsigned int& mSize);
 
+	// prints all the information about the file
 	const void printInfo();
 
 	// gets the entire map of block addresses

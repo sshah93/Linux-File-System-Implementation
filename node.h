@@ -3,8 +3,12 @@
 
 #include "header.h"
 
-class node{
+bool both_are_spaces(char left, char right);
 
+void stringSplit(const string& str, char delimiter, vector<string>& contents);
+
+class node
+{
 protected:
 	bool hasChildren;
 
@@ -12,7 +16,7 @@ public:
 	node();
 	virtual ~node();
 
-	const bool hasChildren();
+	const bool has_Children();
 };
 
 #endif

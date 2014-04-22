@@ -1,9 +1,9 @@
 #include "node.h"
 
 // constructor
-node::node()
+node::node():hasChildren(false)
 {
-	this->hasChildren = false;
+	
 }
 
 // destructor
@@ -13,7 +13,7 @@ node::~node()
 }
 
 // checks if the node has children
-const bool node::hasChildren()
+const bool node::has_Children()
 {
 	return hasChildren;
 }
@@ -23,12 +23,12 @@ bool doubleSpaces(char left, char right)
 	return (left == ' ') && (left == right);
 }
 
-// split string function
-void stringSplit(string& str, char delimiter, vector<string>& contents)
+// split string function which returns a new vector after splitting the entire string
+void stringSplit(const string& str, char delimiter, vector<string>& contents)
 {
 	string individual_str;
 	stringstream splitString(str);
 
-	while(getline(str, individual_str, delimiter))
+	while(std::getline(splitString, individual_str, delimiter))
 		contents.push_back(individual_str);
 }

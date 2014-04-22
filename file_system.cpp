@@ -2,7 +2,14 @@
 
 file_system::file_system(const unsigned int& disk_size, const unsigned int& block_size):
 	disk_size(disk_size), 
-	block_size(block_size)
+	block_size(block_size),
+	total_used_size(0),
+  	total_fragmentation(0)
+{
+
+}
+
+file_system::~file_system()
 {
 
 }
@@ -72,3 +79,19 @@ bool initialize_files(const string& file_list)
 {
 
 }
+
+const void print_dir();
+
+bool setCurrentDir(const string& file);
+// for ls case
+void list();
+bool add_dir_under_current(const string& add, const string& unique);
+bool add_file_under_current(const string& add, const string& unique);
+
+const void bfs_file_info();
+const void bfs_traverse();
+const void print_blocks();
+const void print_disk_info();
+
+void remove_bytes_from_file(const string& unique, const unsigned int& bytes);
+void free_blocks(vector<unsigned int>& removed_blocks);
