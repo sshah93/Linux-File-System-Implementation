@@ -115,7 +115,11 @@ void file_system::free_blocks(vector<unsigned int> &removed_blocks)
 				}
 				else
 				{
-					map<int, disk_block*>* new_map = new map<int, disk_block*>();
+					map<int, disk_block*>* 
+
+					new_map = 
+					new 
+					map<int, disk_block*>();
 					new_map->insert(pair<int, disk_block*>((*iter)->getBlockID(), *iter));
 
 					map<int, disk_block*>::iterator upper_bound = map->upper_bound((*iter)->getBlockID());
