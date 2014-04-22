@@ -212,15 +212,15 @@ bool handleInput(string& input)
 		cout << endl << "exit" << endl;
 		return false; 
 	}
+
+	else if(!input.find("dir"))
+	{
+		new_file_system->bfs_traverse();
+	}
 	
 	else if(!input.find("prfiles"))
 	{
 		new_file_system->bfs_file_info();
-	}
-	
-	else if(!input.find("dir"))
-	{
-		new_file_system->bfs_traverse();
 	}
 	
 	else if(!input.find("prdisk"))
