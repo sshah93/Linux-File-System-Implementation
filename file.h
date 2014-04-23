@@ -14,6 +14,7 @@ protected:
 	struct tm * timestamp;
 
 	// each file has a unique list of block addresses, each block address is mapped to a block id
+	// block id, block address
 	map<unsigned int, unsigned int> block_addresses;
 
 public:
@@ -41,6 +42,9 @@ public:
 
 	// gets the entire map of block addresses
 	std::map<unsigned int, unsigned int>* getMap();
+
+	// gets the last n bytes
+	std::vector<int> get_last_n(int blocks);
 };
 
 #endif

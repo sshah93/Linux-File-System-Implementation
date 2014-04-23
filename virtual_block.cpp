@@ -1,6 +1,8 @@
 #include "virtual_block.h"
 
-virtual_block::virtual_block(const bool& free):
+virtual_block::virtual_block(const int& start, const int& end, const bool& free):
+	start(start),
+	end(end),
 	free(free)
 	{
 
@@ -8,14 +10,7 @@ virtual_block::virtual_block(const bool& free):
 
 virtual_block::~virtual_block()
 {
-	map<int, disk_block*>::iterator iter;
-	iter = Map->begin();
-
-	for(; iter != Map->end(); iter++)
-	{
-		delete iter->second;
-		delete Map;
-	}
+	
 }
 
 const bool virtual_block::isFree()
@@ -23,12 +18,35 @@ const bool virtual_block::isFree()
 	return free;
 }
 
-map<int, disk_block*>* virtual_block::getMap()
+int virtual_block::getStart()
 {
-	return Map;
+	retun start;
 }
 
-void virtual_block::replaceList(map<int, disk_block*>* new_map)
+void virtual_block::setStart(const unsigned int& start_range)
 {
-	Map = new_map;
+	start = start_range;
+}
+
+int virtual_block::getEnd()
+{
+	return end;
+}
+
+void virtual_block::setEnd(const unsigned int& end_range)
+{
+	end = end_range;
+}
+
+const int virtual_block::getSize()
+{
+	return end - start + 1;
+}
+
+const bool virtual_block::inRange(int num)
+{
+	if(num >= start && num <= end)
+		return true;
+
+	return false;
 }

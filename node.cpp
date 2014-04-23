@@ -1,7 +1,7 @@
 #include "node.h"
 
 // constructor
-node::node():hasChildren(false)
+node::node()
 {
 	
 }
@@ -10,12 +10,6 @@ node::node():hasChildren(false)
 node::~node()
 {
 
-}
-
-// checks if the node has children
-const bool node::has_Children()
-{
-	return hasChildren;
 }
 
 bool doubleSpaces(char left, char right)

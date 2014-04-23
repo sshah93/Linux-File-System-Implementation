@@ -3,20 +3,17 @@
 
 #include "header.h"
 
+// helper functions
 bool both_are_spaces(char left, char right);
-
 void stringSplit(const string& str, char delimiter, vector<string>& contents);
 
 class node
 {
-protected:
-	bool hasChildren;
-
 public:
 	node();
 	virtual ~node();
 
-	const bool has_Children();
+	virtual const string getName() = 0;
 };
 
 #endif
