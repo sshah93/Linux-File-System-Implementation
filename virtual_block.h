@@ -2,7 +2,6 @@
 #define _VIRTUAL_BLOCK_H_
 
 #include "header.h"
-#include "disk_block.h"
 
 class virtual_block
 {

@@ -4,7 +4,6 @@
 #include "node.h"
 #include "directory.h"
 #include "file.h"
-#include "disk_block.h"
 #include "virtual_block.h"
 #include "header.h"
 
@@ -27,12 +26,18 @@ protected:
 	// creating the file structure
 	bool build_file_structure();
 
-	bool move_blocks_to_free_node(vector<disk_block*> &blocks);
+	// bool move_blocks_to_free_node(vector<disk_block*> &blocks);
+
+	void delete_range(int start, int end);
+
+	void merge();
 
 	bool handle_file_request(file* file, const unsigned int& space_requested);
 
 	// dfs 
 	const void print_directory(node* root);
+
+	file* find_file(const string& unique_name);
 
 public:
 
@@ -56,7 +61,7 @@ public:
 	const void print_disk_info();
 
 	void remove_bytes_from_file(const string& unique, const unsigned int& bytes);
-	void free_blocks(vector<unsigned int>& removed_blocks);
+	void add_bytes_to_file(const string& unique, const unsigned int& bytes);
 };
 
 #endif

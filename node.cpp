@@ -12,7 +12,7 @@ node::~node()
 
 }
 
-bool doubleSpaces(char left, char right)
+bool both_are_spaces(char left, char right)
 {
 	return (left == ' ') && (left == right);
 }

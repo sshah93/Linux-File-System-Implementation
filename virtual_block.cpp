@@ -20,7 +20,7 @@ const bool virtual_block::isFree()
 
 int virtual_block::getStart()
 {
-	retun start;
+	return start;
 }
 
 void virtual_block::setStart(const unsigned int& start_range)

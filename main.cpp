@@ -15,30 +15,30 @@ int main(int argc, char* argv[])
 	if(argc != 8)
 	{
 		// cout << "Not enough arguments" << endl;
-		cout << "Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
+		cout << "1. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
 	}
 
-	if(argv[1] != "-f")
+	/* if(argv[1] != "-f")
 	{
 		// cout << "You drunk? :P" << endl;
-		cout << "Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
+		cout << "2. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
 	}
 
 	if(argv[4] != "-s")
 	{
 		// cout << "You drunk? :P" << endl;
-		cout << "Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
+		cout << "3. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
 	}
 
 	if(argv[6] != "-b")
 	{
 		// cout << "You drunk? :P" << endl;
-		cout << "Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
+		cout << "4. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
-	}
+	} */
 
 	string dir_list = argv[2];
 	
@@ -194,12 +194,30 @@ bool handleInput(string& input)
 	
 	else if(!input.find("append"))
 	{
-		
+		vector<string> contents;
+		stringSplit(input, ' ', contents);
+
+		string unique = contents[1];
+		istringstream buffer(contents[2]);
+
+		int size;
+		buffer >> size;
+
+		new_file_system->add_bytes_to_file(unique, size);
 	}
 	
 	else if(!input.find("remove"))
 	{
+		vector<string> contents;
+		stringSplit(input, ' ', contents);
 
+		string unique = contents[1];
+		istringstream buffer(contents[2]);
+
+		int size;
+		buffer >> size;
+
+		new_file_system->remove_bytes_from_file(unique, size);
 	}
 	
 	else if(!input.find("delete"))

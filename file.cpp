@@ -75,7 +75,7 @@ vector<int> file::get_last_n(int blocks)
 
 	while(iter != block_addresses.rend() && num > 0)
 	{
-		if(--last_range == iter->first)
+		if(--last == iter->first)
 		{
 			block_addresses.erase(--iter.base());
 			continue;
