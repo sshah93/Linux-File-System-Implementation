@@ -6,6 +6,7 @@
 #include "file.h"
 #include "disk_block.h"
 #include "virtual_block.h"
+#include "header.h"
 
 class file_system
 {

@@ -115,14 +115,10 @@ void file_system::free_blocks(vector<unsigned int> &removed_blocks)
 				}
 				else
 				{
-					map<int, disk_block*>* 
-
-					new_map = 
-					new 
-					map<int, disk_block*>();
+					std::map<int, disk_block*>* new_map = new std::map<int, disk_block*>();
 					new_map->insert(pair<int, disk_block*>((*iter)->getBlockID(), *iter));
 
-					map<int, disk_block*>::iterator upper_bound = map->upper_bound((*iter)->getBlockID());
+					std::map<int, disk_block*>::iterator upper_bound = std::map->upper_bound((*iter)->getBlockID());
 					for(;upper_bound != map->end(); upper_bound++)
 					{
 						new_map->insert(pair<int, disk_block*>(upper_bound->first, upper_bound->second));
@@ -150,7 +146,7 @@ void file_system::free_blocks(vector<unsigned int> &removed_blocks)
 void file_system::remove_bytes_from_file(const string &unique, const unsigned int& bytes)
 {
 	directory* pdir = static_cast<directory*>(current_dir); 
-	vector<node*>* children = pdir->get_children();
+	vector<node*>* children = pdir->getChildren();
 	for(unsigned int i = 0; i < children->size(); i++)
 	{
 		file* pfile = dynamic_cast<file*>((*children)[i]);
@@ -168,15 +164,15 @@ void file_system::remove_bytes_from_file(const string &unique, const unsigned in
 					removed_blocks.push_back(iter->second);
 					blocks->erase( --(iter.base()) );
 					size_removed = size_removed + block_size;
-					if((size_removed >= bytes) || (size_removed >= (pfile->get_size())))
+					if((size_removed >= bytes) || (size_removed >= (pfile->getSize())))
 					{ 
 						//TODO fix fragmentation
-						if(size_removed >= (pfile->get_size()))
+						if(size_removed >= (pfile->getSize()))
 						{
-							size_removed = pfile->get_size();
+							size_removed = pfile->getSize();
 						}
 						cout << "removed " << size_removed << " bytes, and " << (size_removed+1)/block_size << " blocks from: " << pfile->getName() << endl;
-						pfile->set_size(pfile->get_size() - size_removed);
+						pfile->set_size(pfile->getSize() - size_removed);
 						//call function and pass vector to remove freed blocks and merge them if possible
 						free_blocks(removed_blocks);
 						break;
@@ -381,7 +377,7 @@ bool file_system::initialize_directories(const string &file_name)
 				continue;
 			}
 			vector<string> contents;
-			split(line, '/', contents);
+			stringSplit(line, '/', contents);
 			line.erase(line.begin());
 #ifdef DEBUG
 			cout << "LINE READ: " << line << endl;
@@ -419,7 +415,7 @@ bool file_system::initialize_files(const string &file_name)
 
 			//remove unessary spaces, and split line into spaces
 			line.erase(new_end, line.end());
-			split(line, ' ', contents);
+			stringSplit(line, ' ', contents);
 #ifdef DEBUG
 			cout << "file read: " << contents[10] << " timestamp: " << contents[9] << "  size:" << contents[6] << endl;
 #endif
