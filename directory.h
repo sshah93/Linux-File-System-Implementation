@@ -19,7 +19,14 @@ public:
 
 	// public methods
 	void add_child(node*);
+	void remove_chile(const string& name);
+	
+	// getters
 	const string getName();
+	const int getChildrenSize();
+	const bool hasChild(const string& name);
+	
+	// will be used for ls
 	void listChildren();
 	vector<node*>* getChildren();
 };
