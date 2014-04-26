@@ -18,8 +18,8 @@ public:
 	virtual ~directory();
 
 	// public methods
-	void add_child(node*);
-	void remove_chile(const string& name);
+	void addChild(node*);
+	void removeChild(const string& name);
 	
 	// getters
 	const string getName();

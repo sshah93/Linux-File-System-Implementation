@@ -1,6 +1,5 @@
 #include "directory.h"
 #include "file.h"
-#include "node.h"
 
 directory::directory(const string& name):node(), dir_name(name)
 {
@@ -12,12 +11,12 @@ directory::~directory()
 
 }
 
-void directory::add_child(node* child)
+void directory::addChild(node* child)
 {
 	children_node.push_back(child);
 }
 
-void directory::remove_child(const string& name)
+void directory::removeChild(const string& name)
 {
 	bool ret = false;
 	
@@ -29,7 +28,7 @@ void directory::remove_child(const string& name)
 		dir = "/";
 	}
 	
-	for(; iter != children_node.end(); i++)
+	for(; iter != children_node.end(); iter++)
 	{
 		directory* parent = dynamic_cast<directory*>(*iter);
 		
@@ -38,8 +37,10 @@ void directory::remove_child(const string& name)
 			if(parent->getName() == ("/" + name))
 			{
 				if(parent->getChildrenSize() > 0)
+				{
 					cout << "You're trying to delete a non-empty directory" << endl;
-					
+				}
+
 				else
 				{
 					children_node.erase(iter);
@@ -94,7 +95,7 @@ void directory::listChildren()
 
 		if(parent_dir)
 		{
-			std::vector<string> contents;
+			vector<string> contents;
 			stringSplit(parent_dir->getName(), '/', contents);
 			cout << contents[contents.size() - 1] << endl;
 		}
@@ -102,7 +103,8 @@ void directory::listChildren()
 		else
 		{
 			child_dir = dynamic_cast<file*>(children_node[i]);
-			cout << child_dir->getName() << setw(50- child_dir->getName().size()) << " size: " << child_dir->getSize() <<  " bytes" << endl;
+			string time = child_dir->getTime();
+			cout << child_dir->getName() << setw(50- child_dir->getName().size()) << " size: " << child_dir->getSize() <<  " bytes" << "\t" << setw(25-time.size()) << time << endl;
 		}
 	}
 }
@@ -111,7 +113,7 @@ const bool directory::hasChild(const string& name)
 {
 	bool ret = false;
 	
-	for(i = 0; i < children_node.size(); i++)
+	for(int i = 0; i < children_node.size(); i++)
 	{
 		directory* parent = dynamic_cast<directory*>(children_node[i]);
 		
