@@ -14,7 +14,7 @@ node::~node()
 
 bool both_are_spaces(char left, char right)
 {
-	return (left == ' ') && (left == right);
+	return (left == right) && (left == ' ');
 }
 
 // split string function which returns a new vector after splitting the entire string
