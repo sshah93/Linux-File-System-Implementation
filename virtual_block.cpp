@@ -13,11 +13,6 @@ virtual_block::~virtual_block()
 	
 }
 
-const bool virtual_block::isFree()
-{
-	return free;
-}
-
 int virtual_block::getStart()
 {
 	return start;
@@ -49,4 +44,9 @@ const bool virtual_block::inRange(int num)
 		return true;
 
 	return false;
+}
+
+const bool virtual_block::isFree()
+{
+	return free;
 }
