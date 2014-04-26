@@ -6,7 +6,7 @@ file::file(const string& fname, const int& size):
 	file_size(size)
 {
 	time_t t = time(0);
-	timestamp = localtime(&t);
+	timestamp = *localtime(&t);
 }
 
 file::~file()
@@ -34,6 +34,19 @@ void file::setSize(const unsigned int& mSize)
 	file_size = mSize;
 }
 
+const string file::getTime()
+{
+	stringstream s;
+	s << (timestamp.tm_hour) << ":" << (timestamp.tm_min) << ":" << timestamp.tm_sec << "  " << (timestamp.tm_year + 1900) << '-'  << (timestamp.tm_mon + 1) << '-' <<  timestamp.tm_mday;
+	return s.str();
+}
+
+void file::setTime()
+{
+	time_t t = time(0);
+	timestamp = *localtime(&t);
+}
+
 map<unsigned int, unsigned int>* file::getMap()
 {
 	return &block_addresses;
@@ -47,23 +60,27 @@ void file::add_address(const unsigned int& block_size, const unsigned int& block
 
 const void file::printInfo()
 {
-	cout << "file: " << file_name << "size: " << file_size << " total blocks used: " << block_addresses.size() << endl;
+	cout << "file: " << file_name << "size: " << file_size << " total # of blocks used: " << block_addresses.size() << endl;
 	cout << "block addresses: " << endl;
 
 	map<unsigned int, unsigned int>::iterator iter = block_addresses.begin();
 	
 	for(; iter != block_addresses.end(); iter++)
 		cout << iter->second << "-";
-	cout << endl;
+	cout << endl << endl;
 }
 
 vector<int> file::get_last_n(int blocks)
 {
+	vector<int> result;
 	int num = blocks;
 
-	vector<int> result;
+	if(!num)
+	{
+		return result;
+	}
 
-	cout << "Total range: " << block_addresses.begin()->first << ":" << (--block_addresses.end())->first << endl;
+	// cout << "Total range: " << block_addresses.begin()->first << ":" << (--block_addresses.end())->first << endl;
 
 	map<unsigned int, unsigned int>::reverse_iterator iter = block_addresses.rbegin();
 

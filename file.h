@@ -10,7 +10,7 @@ protected:
 	// file attributes
 	string file_name;
 	unsigned int file_size;
-	struct tm * timestamp;
+	tm timestamp;
 
 	// each file has a unique list of block addresses, each block address is mapped to a block id
 	// block id, block address
@@ -32,6 +32,12 @@ public:
 
 	// gets the file size
 	const int getSize();	
+
+	// gets the timestamp
+	const string getTime();
+
+	// sets the timestamp
+	void setTime();
 
 	// sets the file size
 	void setSize(const unsigned int& mSize);
