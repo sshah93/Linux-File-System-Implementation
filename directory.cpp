@@ -38,14 +38,14 @@ void directory::removeChild(const string& name)
 			{
 				if(parent->getChildrenSize() > 0)
 				{
-					cout << "You're trying to delete a non-empty directory" << endl;
+					cout << "Stop trying to delete from a non-empty directory" << endl;
 				}
 
 				else
 				{
 					children_node.erase(iter);
 					ret = true;
-					cout << "directory: " << parent->getName() << " removed ..." << endl;
+					cout << "Directory: " << parent->getName() << " has been removed" << endl;
 				}
 				break;
 			}
@@ -60,7 +60,7 @@ void directory::removeChild(const string& name)
 				if(child->getName() == name)
 				{
 					children_node.erase(iter);
-					cout << "File: "<< child->getName() << " removed ..." << endl;
+					cout << "File: "<< child->getName() << " has been removed" << endl;
 					break;
 				}
 			}
@@ -85,7 +85,7 @@ const int directory::getChildrenSize()
 
 void directory::listChildren()
 {
-	int i;
+	unsigned int i;
 	directory* parent_dir;
 	file* child_dir;
 
@@ -113,7 +113,7 @@ const bool directory::hasChild(const string& name)
 {
 	bool ret = false;
 	
-	for(int i = 0; i < children_node.size(); i++)
+	for(unsigned int i = 0; i < children_node.size(); i++)
 	{
 		directory* parent = dynamic_cast<directory*>(children_node[i]);
 		
