@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 
 	if(!res)
 	{
-		cout << "Wow your files didn't initialize either" << endl;
+		cout << "Unable to initialize your files, might want to give increase block size" << endl;
 		return -1;
 	}
 
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 
 	while(1)
 	{
-		cout << "cs492@suketu: " << current_dir;
+		cout << "cs492@suketu:" << current_dir;
 		cout << "$ ";
 		getline(cin, line);
 		res = handleInput(line); 
