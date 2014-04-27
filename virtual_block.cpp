@@ -4,13 +4,13 @@ virtual_block::virtual_block(const int& start, const int& end, const bool& free)
 	start(start),
 	end(end),
 	free(free)
-	{
+{
 
-	}
+}
 
 virtual_block::~virtual_block()
 {
-	
+
 }
 
 int virtual_block::getStart()

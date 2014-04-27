@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	} 
 
 	string dir_list = argv[2];
-	
+
 	string file_list = argv[3];
 
 	unsigned int disk_size = atoi(argv[5]);
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 	string line;
 
 	new_file_system = new file_system(disk_size, block_size);
-	
+
 	res = new_file_system->initialize_directories(dir_list);
 
 	if(!res)
@@ -121,11 +121,11 @@ bool handleInput(string& input)
 	if(!input.find("cd"))
 	{
 		vector<string> contents;
-		
+
 		stringSplit(input, ' ', contents);
-		
+
 		string dir;
-		
+
 		if(contents.size() != 2)
 		{
 			cout << "Incorrect input by the user!" << endl;
@@ -143,12 +143,12 @@ bool handleInput(string& input)
 			}
 
 			current_dir = current_dir.substr(0, current_dir.size()-1);
-			
+
 			int pos = current_dir.rfind("/");
 			current_dir.erase(pos+1, string::npos);
-			
+
 			dir = current_dir;
-			
+
 			if(dir.compare("/") != 0)
 			{
 				dir = dir.substr(0, dir.size()-1);
@@ -173,13 +173,13 @@ bool handleInput(string& input)
 			}
 		}
 	}
-	
+
 	// ls case
 	else if(!input.find("ls"))
 	{
 		new_file_system->list();
 	}
-	
+
 	// mkdir case
 	else if(!input.find("mkdir"))
 	{
@@ -199,7 +199,7 @@ bool handleInput(string& input)
 		string unique = current_dir + contents[1];
 		new_file_system->add_file_under_current(contents[1], unique);
 	}
-	
+
 	// append case
 	else if(!input.find("append"))
 	{
@@ -214,7 +214,7 @@ bool handleInput(string& input)
 
 		new_file_system->add_bytes_to_file(unique, size);
 	}
-	
+
 	// remove case
 	else if(!input.find("remove"))
 	{
@@ -229,7 +229,7 @@ bool handleInput(string& input)
 
 		new_file_system->remove_bytes_from_file(unique, size);
 	}
-	
+
 	// delete case
 	else if(!input.find("delete"))
 	{
@@ -239,7 +239,7 @@ bool handleInput(string& input)
 		string unique = contents[1];
 		new_file_system->remove(unique);
 	}
-	
+
 	// exit case
 	else if(!input.find("exit"))
 	{
@@ -251,19 +251,19 @@ bool handleInput(string& input)
 	{
 		new_file_system->bfs_traverse();
 	}
-	
+
 	// prfiles case
 	else if(!input.find("prfiles"))
 	{
 		new_file_system->bfs_file_info();
 	}
-	
+
 	// prdisk case
 	else if(!input.find("prdisk"))
 	{
 		new_file_system->print_disk_info();	
 	}
-	
+
 	// unknown command
 	else 
 	{

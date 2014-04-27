@@ -9,11 +9,11 @@ bool both_are_spaces(char left, char right);
 
 class node
 {
-public:
-	node();
-	virtual ~node();
+	public:
+		node();
+		virtual ~node();
 
-	virtual const string getName() = 0;
+		virtual const string getName() = 0;
 };
 
 #endif

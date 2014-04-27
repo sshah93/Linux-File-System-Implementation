@@ -19,23 +19,23 @@ void directory::addChild(node* child)
 void directory::removeChild(const string& name)
 {
 	bool ret = false;
-	
+
 	vector<node*>::iterator iter = children_node.begin();
 	string dir = "";
-	
+
 	if(dir_name == "/")
 	{
 		dir = "/";
 	}
-	
+
 	for(; iter != children_node.end(); iter++)
 	{
 		directory* parent = dynamic_cast<directory*>(*iter);
-		
+
 		if(parent)
 		{
 			if( (parent->getName().find("/" + name) != std::string::npos) 
-			|| (parent->getName().find(name) != std::string::npos))
+					|| (parent->getName().find(name) != std::string::npos))
 			{
 				if(parent->getChildrenSize() > 0)
 				{
@@ -51,11 +51,11 @@ void directory::removeChild(const string& name)
 				break;
 			}
 		}
-		
+
 		else
 		{
 			file* child = dynamic_cast<file*>(*iter);
-			
+
 			if(child)
 			{
 				if(child->getName() == name)
@@ -113,11 +113,11 @@ void directory::listChildren()
 const bool directory::hasChild(const string& name)
 {
 	bool ret = false;
-	
+
 	for(unsigned int i = 0; i < children_node.size(); i++)
 	{
 		directory* parent = dynamic_cast<directory*>(children_node[i]);
-		
+
 		if(parent)
 		{
 			if((parent->getName() == name) || (parent->getName() == "/" + name))
@@ -126,11 +126,11 @@ const bool directory::hasChild(const string& name)
 				break;
 			}
 		}
-		
+
 		else
 		{
 			file* child = dynamic_cast<file*>(children_node[i]);
-			
+
 			if(child->getName() == name)
 			{
 				ret = true;

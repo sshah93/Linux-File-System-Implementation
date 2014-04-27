@@ -3,7 +3,7 @@
 // constructor
 node::node()
 {
-	
+
 }
 
 // destructor

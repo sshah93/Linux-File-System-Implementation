@@ -64,7 +64,7 @@ const void file::printInfo()
 	cout << "block addresses: " << endl;
 
 	map<unsigned int, unsigned int>::iterator iter = block_addresses.begin();
-	
+
 	for(; iter != block_addresses.end(); iter++)
 		cout << iter->second << "-";
 	cout << endl << endl;
@@ -76,11 +76,7 @@ vector<int> file::get_last_n(int blocks)
 	int num = blocks;
 
 	if(!num)
-	{
 		return result;
-	}
-
-	// cout << "Total range: " << block_addresses.begin()->first << ":" << (--block_addresses.end())->first << endl;
 
 	map<unsigned int, unsigned int>::reverse_iterator iter = block_addresses.rbegin();
 
@@ -102,10 +98,10 @@ vector<int> file::get_last_n(int blocks)
 		{
 			result.push_back(end);
 			result.push_back(last);
-			
+
 			end = iter->first;
 			last = end;
-			
+
 			block_addresses.erase(--iter.base());
 		}
 
