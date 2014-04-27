@@ -387,6 +387,8 @@ bool file_system::initialize_files(const string &file_name)
 			{
 				continue;
 			}
+			size_t p = line.find_first_not_of(" \t");
+      		line.erase(0, p);
 			
 			vector<string> contents;
 			string::iterator new_end = unique(line.begin(), line.end(), both_are_spaces);
