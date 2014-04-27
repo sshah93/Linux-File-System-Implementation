@@ -34,7 +34,7 @@ void directory::removeChild(const string& name)
 		
 		if(parent)
 		{
-			if(parent->getName() == ("/" + name))
+			if((parent->getName() == ("/" + name)) || (parent->getName() == name))
 			{
 				if(parent->getChildrenSize() > 0)
 				{
