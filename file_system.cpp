@@ -158,9 +158,7 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 			int old_size = myfile->getSize();
 		
 			if(block_size == 1)
-			{
 				blocks = (space_requested)/block_size;
-			}
 		
 			else if((old_size%block_size != 0) && (old_size != 0))
 			{
