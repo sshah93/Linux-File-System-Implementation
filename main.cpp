@@ -93,8 +93,8 @@ int main(int argc, char* argv[])
 	new_file_system->setCurrentDir("/");
 	current_dir = "/";
 
-	cout << "Total dirs: " << endl;
-	new_file_system->print_directory();
+	// cout << "Total dirs: " << endl;
+	// new_file_system->print_directory();
 
 	while(1)
 	{
@@ -180,6 +180,7 @@ bool handleInput(string& input)
 		new_file_system->list();
 	}
 	
+	// mkdir case
 	else if(!input.find("mkdir"))
 	{
 		vector<string> contents;
@@ -189,6 +190,7 @@ bool handleInput(string& input)
 		new_file_system->add_dir_under_current(contents[1], unique);
 	}
 
+	// create case
 	else if(!input.find("create"))
 	{
 		vector<string> contents;
@@ -198,6 +200,7 @@ bool handleInput(string& input)
 		new_file_system->add_file_under_current(contents[1], unique);
 	}
 	
+	// append case
 	else if(!input.find("append"))
 	{
 		vector<string> contents;
@@ -212,6 +215,7 @@ bool handleInput(string& input)
 		new_file_system->add_bytes_to_file(unique, size);
 	}
 	
+	// remove case
 	else if(!input.find("remove"))
 	{
 		vector<string> contents;
@@ -226,6 +230,7 @@ bool handleInput(string& input)
 		new_file_system->remove_bytes_from_file(unique, size);
 	}
 	
+	// delete case
 	else if(!input.find("delete"))
 	{
 		vector<string> contents;
@@ -235,27 +240,31 @@ bool handleInput(string& input)
 		new_file_system->remove(unique);
 	}
 	
+	// exit case
 	else if(!input.find("exit"))
 	{
 		cout << "exit" << endl;
 		return false; 
 	}
-
+	// dir case
 	else if(!input.find("dir"))
 	{
 		new_file_system->bfs_traverse();
 	}
 	
+	// prfiles case
 	else if(!input.find("prfiles"))
 	{
 		new_file_system->bfs_file_info();
 	}
 	
+	// prdisk case
 	else if(!input.find("prdisk"))
 	{
 		new_file_system->print_disk_info();	
 	}
 	
+	// unknown command
 	else 
 	{
 		cout << "Error: Unrecognized command" << endl;

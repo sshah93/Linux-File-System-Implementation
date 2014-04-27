@@ -1,9 +1,6 @@
-  8845    1 -rw-r--r--   1 sshah75  student         0 Apr 27 15:22 ./file_list.txt
-  8844    1 -rw-r--r--   1 sshah75  student       334 Apr 27 15:22 ./dir_list.txt
   7367    1 -rw-r--r--   1 sshah75  student       380 Oct 10  2013 ./cs392/src/myminishell/Makefile
   7637    4 -rw-r--r--   1 sshah75  student      2361 Oct 16  2013 ./cs392/src/myminishell/myminishell.c
   4239   14 -rwxr-xr-x   1 sshah75  student     13299 Oct 16  2013 ./cs392/src/myminishell/minishell
-  8843    1 -rw-r--r--   1 sshah75  student       117 Apr 27 15:15 ./cs392/src/dir_list.txt
   8201    1 -rw-r--r--   1 sshah75  student       437 Jan 14 09:56 ./cs392/src/mypipes/Makefile
   8207   14 -rwxr-xr-x   1 sshah75  student     13365 Feb 11 10:11 ./cs392/src/mypipes/pipes
   8213    3 -rw-r--r--   1 sshah75  student      2536 Feb 11 10:12 ./cs392/src/mypipes/pipes.c
@@ -74,29 +71,6 @@
   5485    1 -rw-r--r--   1 sshah75  student       305 Oct 22  2013 ./cs392/src/mysignals/sendpid.c
   5298    2 -rw-r--r--   1 sshah75  student       834 Oct 21  2013 ./cs392/src/mysignals/mysignals.h
   5483    1 -rw-r--r--   1 sshah75  student        83 Oct 22  2013 ./cs392/src/mysignals/acknowledge.c
-  4313    1 -rw-r--r--   1 sshah75  student       422 Oct 19  2013 ./cs392/src/1Test/server.c
-  4971   14 -rwxr-xr-x   1 sshah75  student     13642 Oct 19  2013 ./cs392/src/1Test/client
-  4288    1 -rw-r--r--   1 sshah75  student       508 Oct 19  2013 ./cs392/src/1Test/Makefile
-  5002    2 -rw-r--r--   1 sshah75  student      1464 Oct 19  2013 ./cs392/src/1Test/getclipid.o
-  4269    1 -rw-r--r--   1 sshah75  student        57 Oct 19  2013 ./cs392/src/1Test/acknowledge.c
-  5004   10 -rwxr-xr-x   1 sshah75  student      9121 Oct 19  2013 ./cs392/src/1Test/server
-  4445    3 -rw-r--r--   1 sshah75  student      1608 Oct 19  2013 ./cs392/src/1Test/byec.o
-  4431    3 -rw-r--r--   1 sshah75  student      2392 Oct 19  2013 ./cs392/src/1Test/client.o
-  4278    1 -rw-r--r--   1 sshah75  student       231 Oct 19  2013 ./cs392/src/1Test/getchar.c
-  4273    1 -rw-r--r--   1 sshah75  student       101 Oct 19  2013 ./cs392/src/1Test/byes.c
-  4291    1 -rw-r--r--   1 sshah75  student       363 Oct 19  2013 ./cs392/src/1Test/sendmsg.c
-  4277    1 -rw-r--r--   1 sshah75  student       216 Oct 19  2013 ./cs392/src/1Test/client.h
-  4667    3 -rw-r--r--   1 sshah75  student      1560 Oct 19  2013 ./cs392/src/1Test/sendpid.o
-  5000    3 -rw-r--r--   1 sshah75  student      2504 Oct 19  2013 ./cs392/src/1Test/server.o
-  4323    1 -rw-r--r--   1 sshah75  student       251 Oct 19  2013 ./cs392/src/1Test/server.h
-  4447    2 -rw-r--r--   1 sshah75  student      1376 Oct 19  2013 ./cs392/src/1Test/acknowledge.o
-  4286    1 -rw-r--r--   1 sshah75  student       113 Oct 19  2013 ./cs392/src/1Test/getclipid.c
-  4272    1 -rw-r--r--   1 sshah75  student       101 Oct 19  2013 ./cs392/src/1Test/byec.c
-  4371    1 -rw-r--r--   1 sshah75  student       369 Oct 19  2013 ./cs392/src/1Test/client.c
-  5003    3 -rw-r--r--   1 sshah75  student      1872 Oct 19  2013 ./cs392/src/1Test/getchar.o
-  4970    3 -rw-r--r--   1 sshah75  student      1664 Oct 19  2013 ./cs392/src/1Test/sendmsg.o
-  5001    3 -rw-r--r--   1 sshah75  student      1616 Oct 19  2013 ./cs392/src/1Test/byes.o
-  4300    1 -rw-r--r--   1 sshah75  student       270 Oct 19  2013 ./cs392/src/1Test/sendpid.c
   5595   41 -rw-r--r--   1 sshah75  student     40558 Oct 30 16:14 ./cs392/src/lib/libmy.a
   6885   24 -rw-r--r--   1 sshah75  student     23370 Oct  2  2013 ./cs392/src/lib/libmylist.a
   7547    2 -rw-r--r--   1 sshah75  student      1516 Nov 19 19:02 ./cs392/src/lib/my.h
@@ -131,19 +105,14 @@
   6212   24 -rw-r--r--   1 sshah75  student     23437 Nov 24 19:51 ./cs392/src/mysocketgtkclient/send.png
   5912    1 -rw-r--r--   1 sshah75  student       446 Nov 26 10:09 ./cs392/src/mysocketgtkclient/mygtk.h
   6258   14 -rwxr-xr-x   1 sshah75  student     13634 Nov 26 09:44 ./cs392/src/mysocketgtkclient/server
-  8842   14 -rw-r--r--   1 sshah75  student     13251 Apr 27 15:13 ./cs392/src/file_list.txt
   6953    5 -rw-r--r--   1 sshah75  student      3840 Oct  3  2013 ./cs392/src/test/my_test.o
   8260    6 -rw-r--r--   1 sshah75  student      4684 Feb 21 00:24 ./cs392/src/test/test_llist.c
   8254    9 -rw-r--r--   1 sshah75  student      8507 Feb 21 00:18 ./cs392/src/test/mytest_1.c
   7600   14 -rwxr-xr-x   1 sshah75  student     12964 Oct 11  2013 ./cs392/src/test/test
-  6404    7 -rw-r--r--   1 sshah75  student      5743 Sep 25  2013 ./cs392/src/test/assign_test.c
   8248    6 -rw-r--r--   1 sshah75  student      5048 Feb 21 00:18 ./cs392/src/test/mytest.c
-  4354    1 -rw-r--r--   1 sshah75  student       369 Oct 19  2013 ./cs392/src/test/client.c
   7257    5 -rw-r--r--   1 sshah75  student      3899 Sep 18  2013 ./cs392/src/test/my_test.c
   6669    5 -rw-r--r--   1 sshah75  student      4568 Sep 26  2013 ./cs392/src/test/test_llist.o
   5464   10 -rwxr-xr-x   1 sshah75  student      8810 Oct 22  2013 ./cs392/src/test/mytest
-  7611    4 -rw-r--r--   1 sshah75  student      2885 Oct 11  2013 ./cs392/src/test/testmy.c
-  6919   13 -rw-r--r--   1 sshah75  student     12608 Oct  3  2013 ./cs392/src/test/mytest_1.o
   8681   14 -rwxr-xr-x   1 sshah75  student     13480 Apr  7 10:35 ./cs392/src/mysockets/client
   8680    5 -rw-r--r--   1 sshah75  student      4600 Apr  7 10:35 ./cs392/src/mysockets/client.o
   8678   14 -rwxr-xr-x   1 sshah75  student     13634 Apr  7 10:35 ./cs392/src/mysockets/server
@@ -152,60 +121,12 @@
   8668    5 -rw-r--r--   1 sshah75  student      3971 Apr  7 10:33 ./cs392/src/mysockets/client.c
   8677    7 -rw-r--r--   1 sshah75  student      6040 Apr  7 10:35 ./cs392/src/mysockets/server.o
   5531    2 -rw-r--r--   1 sshah75  student      1100 Nov  1 00:25 ./cs392/src/mysockets/sockets.h
-  8630    7 -rw-r--r--   1 sshah75  student      6004 Mar 15 01:33 ./Test/shitty_array.cpp
-  5184    1 -rw-r--r--   1 sshah75  student       134 Sep  8  2013 ./Test/my_char.c
-  8236    5 -rw-r--r--   1 sshah75  student      3941 Feb 13 16:50 ./Test/Lab1.c
-  8626   13 -rw-r--r--   1 sshah75  student     12682 Apr  9 15:31 ./Test/main.cpp
-  5175    1 -rw-r--r--   1 sshah75  student       357 Sep  8  2013 ./Test/lib/my.h
-  5176    1 -rw-r--r--   1 sshah75  student       357 Sep  8  2013 ./Test/my.h
-  8774    1 -rw-r--r--   1 sshah75  student        27 Apr  9 15:36 ./Test/mygamesave.txt
-  5191    1 -rw-r--r--   1 sshah75  student       429 Sep  8  2013 ./Test/my_str.c
-  8773   52 -rwxr-xr-x   1 sshah75  student     52718 Apr  9 15:32 ./Test/test
-  8657    3 -rw-r--r--   1 sshah75  student      1558 Apr  2 11:28 ./Test/xml_project.cpp
   6756    4 -rw-r--r--   1 sshah75  student      2395 Sep 30  2013 ./cs511/primes.c
-  6597    3 -rw-r--r--   1 sshah75  student      2514 Sep 25  2013 ./cs511/primary.c
-  6605    3 -rw-r--r--   1 sshah75  student      1933 Sep 25  2013 ./cs511/idk-primes.c
-  6772   10 -rwxr-xr-x   1 sshah75  student      8868 Sep 30  2013 ./cs511/primes
-  7294    2 -rw-r--r--   1 sshah75  student      1136 Sep 18  2013 ./cs511/exercise.c
-  6773    4 -rw-r--r--   1 sshah75  student      1881 Sep 30  2013 ./cs511/trial.c
   6789   10 -rwxr-xr-x   1 sshah75  student      8867 Sep 30  2013 ./cs511/trial
   8317   19 -rw-r--r--   1 sshah75  student     18782 Mar  8 21:30 ./cs492/Assignment1/main.cpp
-  8341    3 -rw-r--r--   1 sshah75  student      2333 Mar  8 18:06 ./cs492/Assignment1/header.h
-  8623    5 -rw-r--r--   1 sshah75  student      3772 Mar  8 23:06 ./cs492/Assignment1/Analysis.txt
-  8611   10 -rw-r--r--   1 sshah75  student      8745 Mar  8 23:05 ./cs492/Assignment1/fifo_results.txt
-  8617   11 -rw-r--r--   1 sshah75  student     10673 Mar  8 23:05 ./cs492/Assignment1/rr_results.txt
-  8744    1 -rw-r--r--   1 sshah75  student       417 Apr  7 21:54 ./cs492/Assignment1/Makefile
-  8746  114 -rwxr-xr-x   1 sshah75  student    115539 Apr  7 21:54 ./cs492/Assignment1/assignment1
-  8727   90 -rw-r--r--   1 sshah75  student     91119 Apr  7 19:23 ./cs492/report.xlsx
-  8717    9 -rwxr-xr-x   1 sshah75  student      8319 Apr  7 19:23 ./cs492/MainMemory.cpp
-  8726  259 -rwxr-xr-x   1 sshah75  student    230963 Apr  7 19:23 ./cs492/report.pdf
-  8728  515 -rwxr-xr-x   1 sshah75  student    417862 Apr  7 19:23 ./cs492/VMsimulator
-  8723    1 -rwxr-xr-x   1 sshah75  student        59 Apr  7 19:23 ./cs492/plist.txt
-  8719    1 -rwxr-xr-x   1 sshah75  student       419 Apr  7 19:23 ./cs492/Makefile
-  8716    1 -rwxr-xr-x   1 sshah75  student       315 Apr  7 19:23 ./cs492/Assign2.h
-  8715    6 -rwxr-xr-x   1 sshah75  student      5387 Apr  7 19:23 ./cs492/Assign2.cpp
-  8718    3 -rwxr-xr-x   1 sshah75  student      2461 Apr  7 19:23 ./cs492/MainMemory.h
-  8765   87 -rw-r--r--   1 sshah75  student     88527 Apr  7 22:04 ./cs492/Assignment2/Analysis.xlsx
-  8747    7 -rwxr-xr-x   1 sshah75  student      5678 Apr  7 21:59 ./cs492/Assignment2/Assign2.cpp
-  8756 6279 -rwxr-xr-x   1 sshah75  student   6291536 Apr  7 21:58 ./cs492/Assignment2/ptrace.txt
-  8748    1 -rwxr-xr-x   1 sshah75  student       399 Apr  7 21:57 ./cs492/Assignment2/Assign2.h
-  8757    1 -rwxr-xr-x   1 sshah75  student       468 Apr  7 21:58 ./cs492/Assignment2/README.txt
-  8755    1 -rwxr-xr-x   1 sshah75  student        59 Apr  7 21:57 ./cs492/Assignment2/plist.txt
-  8751    1 -rwxr-xr-x   1 sshah75  student       419 Apr  7 21:57 ./cs492/Assignment2/Makefile
-  8754    2 -rwxr-xr-x   1 sshah75  student      1057 Apr  7 21:57 ./cs492/Assignment2/PageTable.h
-  8752    1 -rwxr-xr-x   1 sshah75  student       290 Apr  7 21:57 ./cs492/Assignment2/Page.h
-  8749    9 -rwxr-xr-x   1 sshah75  student      8381 Apr  7 21:57 ./cs492/Assignment2/MainMemory.cpp
-  8753    2 -rwxr-xr-x   1 sshah75  student      1251 Apr  7 21:57 ./cs492/Assignment2/PageTable.cpp
-  8750    3 -rwxr-xr-x   1 sshah75  student      2487 Apr  7 21:57 ./cs492/Assignment2/MainMemory.h
   8770    5 -rw-r--r--   1 sshah75  student      3900 Apr  7 23:24 ./cs492/Assignment2/Analysis.txt
   8721    2 -rwxr-xr-x   1 sshah75  student       930 Apr  7 19:23 ./cs492/PageTable.cpp
   8272    3 -rw-r--r--   1 sshah75  student      1877 Mar  2 20:32 ./cs492/Test/queue.c
-  8280    1 -rw-r--r--   1 sshah75  student         0 Mar  2 16:04 ./cs492/Test/consumer.c
-  8295    2 -rw-r--r--   1 sshah75  student       734 Mar  4 10:01 ./cs492/Test/my.h
-  8312    2 -rw-r--r--   1 sshah75  student       670 Mar  3 13:36 ./cs492/Test/main.c
-  8436    1 -rw-r--r--   1 sshah75  student       289 Mar  6 16:22 ./cs492/Test/Makefile
   8725    1 -rwxr-xr-x   1 sshah75  student       381 Apr  7 19:23 ./cs492/README.txt
   8720    1 -rwxr-xr-x   1 sshah75  student       294 Apr  7 19:23 ./cs492/Page.h
   8722    2 -rwxr-xr-x   1 sshah75  student      1061 Apr  7 19:23 ./cs492/PageTable.h
-  8772 6279 -rw-r--r--   1 sshah75  student   6420480 Apr  7 23:27 ./cs492/Suketu_Shah_Assignment2.tar
-  8724 6279 -rwxr-xr-x   1 sshah75  student   6291536 Apr  7 19:23 ./cs492/ptrace.txt
