@@ -12,19 +12,18 @@ file_system::file_system(const unsigned int& disk_size, const unsigned int& bloc
 
 file_system::~file_system()
 {
+	map<string, node*>::iterator iter;
+	
+	for(iter = root_dir.begin(); iter != root_dir.end(); ++iter)
 	{
-		map<string, node*>::iterator iter;
-		for(iter = root_dir.begin(); iter != root_dir.end(); ++iter)
-		{
-			delete iter->second;
-		}
+		delete iter->second;
 	}
+	
+	deque<virtual_block*>::iterator i_iter;
+	
+	for(i_iter = disk_blocks.begin(); i_iter != disk_blocks.end(); ++i_iter)
 	{
-		deque<virtual_block*>::iterator iter;
-		for(iter = disk_blocks.begin(); iter != disk_blocks.end(); ++iter)
-		{
-			delete *iter;
-		}
+		delete *i_iter;
 	}
 }
 
@@ -35,45 +34,44 @@ const void file_system::print_blocks()
 	deque<virtual_block*>::iterator iter;
 	iter = disk_blocks.begin();
 
-	for(; iter != disk_blocks.end() ; iter++)
+	for(; iter != disk_blocks.end(); iter++)
 	{
 		if((*iter)->getSize() <= 0)
 		{
 			deque<virtual_block*>::iterator it = iter;
 			delete *it;
 			disk_blocks.erase(it);
+
 			if(iter == disk_blocks.end())
-			{
 				break;
-			}
+			
 			else
-			{
 				continue;
-			}
 		}
+
 		string fr("FULL");
+		
 		if((*iter)->isFree())
-		{
 			fr = "FREE";
-		}
+		
 		cout << "node: -with: " << (*iter)->getSize() << " contiguous " << fr << " blocks, range: " << (*iter)->getStart() << ":" << (*iter)->getEnd() << endl;
 	}
 }
 
 file* file_system::find_file(const string& unique_name)
 {
-	directory* pdir = static_cast<directory*>(current_dir); 
-	vector<node*>* children = pdir->getChildren();
+	directory* parent = static_cast<directory*>(current_dir); 
+	vector<node*>* children = parent->getChildren();
 
 	file* ret = NULL;
 	for(unsigned int i = 0; i < children->size(); i++)
 	{
-		file* pfile = dynamic_cast<file*>((*children)[i]);
-		if(pfile)
+		file* child = dynamic_cast<file*>((*children)[i]);
+		if(child)
 		{
-			if(pfile->getName() == unique_name)
+			if(child->getName() == unique_name)
 			{
-				ret = pfile;
+				ret = child;
 				break;
 			}
 		}
@@ -104,29 +102,45 @@ void file_system::delete_range(int start, int end)
 
 void file_system::remove_bytes_from_file(const string &unique, const unsigned int& bytes)
 {
-	file* pfile(find_file(unique));
-	if(pfile == NULL)
+	file* child(find_file(unique));
+
+	if(child == NULL)
 	{
 		cout << "ERROR file does not exist" << endl;
 		return;
 	}
 
-	if(pfile->getSize() < bytes)
+	if(child->getSize() < bytes)
 	{
 		cout << "can't delete more than file size " << endl;
 		return;
 	}
-	pfile->setSize(pfile->getSize() - bytes);
+	int old_size = child->getSize();
+	int block = 0;
+	if(block_size == 1)
+	{
+		block = (bytes)/block_size;
+	}
+	else if((old_size%block_size != 0) && (old_size != 0))
+	{
+		block = (bytes+1)/block_size;
+		total_fragmentation = total_fragmentation - (bytes%block_size);
+	}
+	else
+	{
+		block = (int)floor((bytes)/block_size);
+		total_fragmentation = total_fragmentation + (bytes%block_size);
+	}
+	child->setSize(child->getSize() - bytes);
+	child->setTime();
 
-	int block = (bytes+1)/block_size;
-	cout << "removing: " << bytes << " bytes, and " << block << " blocks from " << pfile->getName() << endl;
+	cout << "removing: " << bytes << " bytes, and " << block << " blocks from " << child->getName() << endl;
 
-	vector<int> blocks = pfile->get_last_n(block);
+	vector<int> blocks = child->get_last_n(block);
 	for(unsigned int i = 0; i < blocks.size(); i ++)
 	{
 		int end = blocks[i];
 		int start = blocks[++i];
-		cout << start << ":" << end << endl;
 		delete_range(start, end);
 	}
 	total_used_size = total_used_size-bytes;
@@ -134,8 +148,8 @@ void file_system::remove_bytes_from_file(const string &unique, const unsigned in
 
 void file_system::add_bytes_to_file(const string &unique, const unsigned int& bytes)
 {
-	file* pfile(find_file(unique));
-	if(pfile == NULL)
+	file* child(find_file(unique));
+	if(child == NULL)
 	{
 		cout << "ERROR file does not exist" << endl;
 		return;
@@ -147,11 +161,8 @@ void file_system::add_bytes_to_file(const string &unique, const unsigned int& by
 	}
 	else
 	{
-		pfile->setSize(pfile->getSize() + bytes);
-
-		handle_file_request(pfile, bytes);
+		handle_file_request(child, bytes);
 	}
-
 }
 
 void file_system::merge()
@@ -197,7 +208,7 @@ void file_system::merge()
 }
 
 //file would like x amount of space, see if we can add it
-bool file_system::handle_file_request(file* file, const unsigned int& space_requested)
+bool file_system::handle_file_request(file* myfile, const unsigned int& space_requested)
 {
 	bool ret(false);
 
@@ -214,30 +225,37 @@ bool file_system::handle_file_request(file* file, const unsigned int& space_requ
 		if(cur->isFree())
 		{
 			int blocks = 0;
+			int old_size = myfile->getSize();
 			if(block_size == 1)
 			{
 				blocks = (space_requested)/block_size;
 			}
+			else if((old_size%block_size != 0) && (old_size != 0))
+			{
+				blocks = (space_requested)/block_size;
+				total_fragmentation = total_fragmentation - (space_requested%block_size);
+			}
 			else
 			{
 				blocks = (space_requested+1)/block_size;
+				total_fragmentation = total_fragmentation + (space_requested%block_size);
 			}
+			cout << "allocating blocks for file: " << myfile->getName() << "- total size: " << space_requested << "- total blocks: " << blocks << endl;
 			int old_start = cur->getStart();
 			cur->setStart(old_start+blocks);
 			int new_end = old_start+(blocks-1);
 			virtual_block* add = new virtual_block(old_start, new_end, false);
 			disk_blocks.insert(it, add);
-			ret = true;
-
-#ifdef DEBUG
-			cout << "allocating blocks for file " << file->getName() << " total size: " << space_requested << ", total blocks: " << blocks << endl;
-#endif
-			total_used_size = total_used_size + space_requested;
-			total_fragmentation = total_fragmentation + (space_requested%block_size);
 			for(int i = old_start; i <= new_end; i++)
 			{
-				file->add_address(block_size, i);
+				myfile->add_address(block_size, i);
 			}
+			ret = true;
+
+			myfile->setSize(old_size + space_requested);
+			myfile->setTime();
+
+			total_used_size = total_used_size + space_requested;
 			break;
 		}
 	}
@@ -271,21 +289,22 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 	{
 		ret = true;
 		node* add = new directory(unique_name);
-		directory* pdir = static_cast<directory*>(root_dir.find("/")->second); 
-		pdir->add_child(add);
+		directory* parent = static_cast<directory*>(root_dir.find("/")->second); 
+		parent->addChild(add);
 		root_dir.insert(pair<string, node*>(unique_name, add));
-#ifdef DEBUG
+
 		cout << "adding directory: " << unique_name << endl;
 		cout << "adding parent directory: " << "/" << endl;
-#endif
+
 		return ret;
 	}
 
 	ret = true;
+
 	for(unsigned int i = contents.size()-1; i > 1; i--)
 	{
-		string dir(unique_name);
-		string parent(unique_name);
+		string dir = unique_name;
+		string parent = unique_name;
 
 		unsigned int pos = parent.find("/" + contents[i]);
 		parent.erase(pos, string::npos);
@@ -301,15 +320,13 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 		if(root_dir.find(dir) == root_dir.end())
 		{
 			node* add = new directory(dir);
-			directory* pdir = static_cast<directory*>(root_dir.find(parent)->second);
-			pdir->add_child(add);
+			directory* pdir = static_cast<directory*> (root_dir.find(parent)->second);
+			pdir->addChild(add);
 
 			root_dir.insert(pair<string, node*>(dir, add));
 
-#ifdef DEBUG
 			cout << "adding directory: " << dir << endl;
 			cout << "of parent directory: " << parent <<endl;
-#endif
 			break;
 		}
 	}
@@ -319,7 +336,7 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 bool file_system::initialize_directories(const string &file_name)
 {
 	build_file_structure();
-	bool ret(false);
+	bool ret = false;
 	string line;
 	ifstream directory_list(file_name.c_str(), ios::in);
 	cout << "opening file ... " << file_name << endl;
@@ -336,12 +353,13 @@ bool file_system::initialize_directories(const string &file_name)
 			{
 				continue;
 			}
+			
 			vector<string> contents;
 			stringSplit(line, '/', contents);
 			line.erase(line.begin());
-#ifdef DEBUG
+
 			cout << "LINE READ: " << line << endl;
-#endif
+
 			build_directory_structure(contents, line);
 
 		}
@@ -369,6 +387,7 @@ bool file_system::initialize_files(const string &file_name)
 			{
 				continue;
 			}
+			
 			vector<string> contents;
 			string::iterator new_end = unique(line.begin(), line.end(), both_are_spaces);
 
@@ -398,16 +417,17 @@ bool file_system::initialize_files(const string &file_name)
 				int size;
 				buffer >> size;
 				directory* pdir = static_cast<directory*>(root_dir.find(parent)->second);
-				node* myfile = new file(file_name, size);
-				pdir->add_child(myfile);
-				file* pfile = static_cast<file*>(myfile);
-				if(!handle_file_request(pfile, size))
+				node* myfile = new file(file_name, 0);
+				pdir->addChild(myfile);
+				file* child = static_cast<file*>(myfile);
+				
+				if(!handle_file_request(child, size))
 				{
 					cout << "error not enough free space to create blocks for file : " << file_name << endl;
 					return false;
 				}
 			}
-			
+	
 			else
 			{
 				cout << "error directory doesn't exist" << endl;
@@ -440,16 +460,13 @@ const void file_system::bfs_file_info()
 	while(!bfs.empty())
 	{
 		current = bfs.front();
-		directory* pdir = dynamic_cast<directory*>(current);
-		
-		if(pdir)
+		directory* parent = dynamic_cast<directory*>(current);
+		if(parent)
 		{
-			vector<node*>* children = pdir->getChildren();
-			
+			vector<node*>* children = parent->getChildren();
 			for(unsigned int i = 0; i < children->size(); i++)
 			{
 				node* mynode = dynamic_cast<node*>(children->at(i));
-				
 				if(!mynode)
 				{
 					cout << "error cannot cast to node..." << endl;
@@ -476,17 +493,14 @@ const void file_system::bfs_traverse()
 	while(!bfs.empty())
 	{
 		current = bfs.front();
-		directory* pdir = dynamic_cast<directory*>(current);
-		
-		if(pdir)
+		directory* parent = dynamic_cast<directory*>(current);
+		if(parent)
 		{
-			cout << "Directory: " << pdir->getName() << endl;
-			vector<node*>* children = pdir->getChildren();
-		
+			cout << "Directory: " << parent->getName() << endl;
+			vector<node*>* children = parent->getChildren();
 			for(unsigned int i = 0; i < children->size(); i++)
 			{
 				node* mynode = dynamic_cast<node*>(children->at(i));
-		
 				if(!mynode)
 				{
 					cout << "error cannot cast to node..." << endl;
@@ -495,7 +509,6 @@ const void file_system::bfs_traverse()
 				bfs.push(mynode);
 			}
 		}
-		
 		else
 		{
 			file* myfile = dynamic_cast<file*>(current);
@@ -507,12 +520,11 @@ const void file_system::bfs_traverse()
 
 const void file_system::print_directory(node* root)
 {
-	directory* pdir = dynamic_cast<directory*>(root);
-	
-	if(pdir)
+	directory* parent = dynamic_cast<directory*>(root);
+	if(parent)
 	{
-		cout << "Directory: " << pdir->getName() << endl;
-		vector<node*>* children = pdir->getChildren();
+		cout << "Directory: " << parent->getName() << endl;
+		vector<node*>* children = parent->getChildren();
 		for(unsigned int i = 0; i < children->size(); i++)
 		{
 			node* mynode = dynamic_cast<node*>(children->at(i));
@@ -547,17 +559,43 @@ void file_system::list()
 	cur->listChildren();
 }
 
+void file_system::remove(const string& child)
+{
+	directory* cur = dynamic_cast<directory*>(current_dir);
+	cur->removeChild(child);
+}
+
 
 bool file_system::add_dir_under_current(const string &add, const string &unique)
 {
 	bool ret(false);
-	if(root_dir.find(unique) != root_dir.end())
+	if(root_dir.find(unique) == root_dir.end())
 	{
-		ret = true;
+
 		directory* cur = dynamic_cast<directory*>(current_dir);
-		node* new_dir = new directory(add);
-		cur->add_child(new_dir);
+		if(cur->hasChild(add))
+		{
+			cout << "cannot add directory, file or directory with the same name exists..." << endl;
+			return ret;
+		}
+		ret = true;
+		node* new_dir;
+
+		if(cur->getName() == "/")
+		{
+			new_dir = new directory("/" + add);
+		}
+		else
+		{
+			new_dir = new directory("/" + add);
+		}
+		cur->addChild(new_dir);
+		cout << "adding directory " << unique << endl;
 		root_dir.insert(pair<string, node*>(unique, new_dir));
+	}
+	else
+	{
+		cout << "cannot add directory, file or directory with the same name exists..." << endl;
 	}
 	return ret;
 }
@@ -565,20 +603,25 @@ bool file_system::add_dir_under_current(const string &add, const string &unique)
 bool file_system::add_file_under_current(const string &add, const string &unique)
 {
 	bool ret(false);
-	if(root_dir.find(unique) != root_dir.end())
+	ret = true;
+	directory* cur = dynamic_cast<directory*>(current_dir);
+	if(!cur->hasChild(add))
 	{
-		ret = true;
-		directory* cur = dynamic_cast<directory*>(current_dir);
 		node* new_file = new file(add, 0);
-		cur->add_child(new_file);
+		cur->addChild(new_file);
+		cout << "adding file: " << add << endl;
 		root_dir.insert(pair<string, node*>(unique, new_file));
+	}
+	else
+	{
+		cout << "file already exists.." << endl;
 	}
 	return ret;
 }
 
 const void file_system::print_disk_info()
 {
-	cout << "total disk size: " <<  disk_size << " -total blocks: " << total_blocks << "- total used space (not including fragmentation): " << 
-		total_used_size  << " - fragmentation: " << total_fragmentation << endl;
+	cout << "total disk size: " <<  disk_size << "- total blocks: " << total_blocks << "- total used space (not including fragmentation): " << 
+		total_used_size  << "- fragmentation: " << total_fragmentation << endl;
 	print_blocks();
 }

@@ -1,11 +1,11 @@
 #ifndef _FILE_SYSTEM_H_
 #define _FILE_SYSTEM_H_
 
+#include "header.h"
 #include "node.h"
 #include "directory.h"
 #include "file.h"
 #include "virtual_block.h"
-#include "header.h"
 
 class file_system
 {
@@ -28,15 +28,19 @@ protected:
 
 	// bool move_blocks_to_free_node(vector<disk_block*> &blocks);
 
+	// deletes range of virtual blocks
 	void delete_range(int start, int end);
 
+	// merges 2 empty/closed blocks together
 	void merge();
 
+	// updates from a file
 	bool handle_file_request(file* file, const unsigned int& space_requested);
 
 	// dfs 
 	const void print_directory(node* root);
 
+	// helper function to find a file
 	file* find_file(const string& unique_name);
 
 public:
@@ -50,8 +54,8 @@ public:
 	const void print_directory();
 
 	bool setCurrentDir(const string& file);
-	// for ls case
 	void list();
+	void remove(const string& file);
 	bool add_dir_under_current(const string& add, const string& unique);
 	bool add_file_under_current(const string& add, const string& unique);
 

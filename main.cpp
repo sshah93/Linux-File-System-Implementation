@@ -19,26 +19,32 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	/* if(argv[1] != "-f")
+	string arg1 = argv[1];
+
+	if(arg1.compare("-f") != 0)
 	{
 		// cout << "You drunk? :P" << endl;
 		cout << "2. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
 	}
 
-	if(argv[4] != "-s")
+	string arg4 = argv[4];
+
+	if(arg4.compare("-s") != 0)
 	{
 		// cout << "You drunk? :P" << endl;
 		cout << "3. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
 	}
 
-	if(argv[6] != "-b")
+	string arg6 = argv[6];
+
+	if(arg6.compare("-b") != 0)
 	{
 		// cout << "You drunk? :P" << endl;
 		cout << "4. Usage: <./filesystem> -f dir_list.txt file_list.txt -s <disk_size> -b <block_size>" << endl;
 		return -1;
-	} */
+	} 
 
 	string dir_list = argv[2];
 	
@@ -103,7 +109,7 @@ int main(int argc, char* argv[])
 		}
 
 		cin.clear();
-		cout << endl;
+		//cout << endl;
 	}
 
 	return 0;
@@ -222,12 +228,16 @@ bool handleInput(string& input)
 	
 	else if(!input.find("delete"))
 	{
-		
+		vector<string> contents;
+		stringSplit(input, ' ', contents);
+
+		string unique = contents[1];
+		new_file_system->remove(unique);
 	}
 	
 	else if(!input.find("exit"))
 	{
-		cout << endl << "exit" << endl;
+		cout << "exit" << endl;
 		return false; 
 	}
 
