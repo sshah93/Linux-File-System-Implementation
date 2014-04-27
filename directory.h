@@ -19,15 +19,21 @@ class directory: public node
 
 		// public methods
 		void addChild(node*);
+
+		// helper function for remove case
 		void removeChild(const string& name);
 
 		// getters
 		const string getName();
 		const int getChildrenSize();
+
+		// checks if the children_node of a directory is empty 
 		const bool hasChild(const string& name);
 
 		// will be used for ls
 		void listChildren();
+
+		// helper function for cd
 		vector<node*>* getChildren();
 };
 

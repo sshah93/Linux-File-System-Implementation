@@ -38,16 +38,15 @@ void directory::removeChild(const string& name)
 					|| (parent->getName().find(name) != std::string::npos))
 			{
 				if(parent->getChildrenSize() > 0)
-				{
 					cout << "Stop trying to delete from a non-empty directory" << endl;
-				}
-
+				
 				else
 				{
 					children_node.erase(iter);
 					ret = true;
 					cout << "Directory: " << parent->getName() << " has been removed" << endl;
 				}
+				
 				break;
 			}
 		}

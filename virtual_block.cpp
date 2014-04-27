@@ -33,9 +33,9 @@ void virtual_block::setEnd(const unsigned int& end_range)
 	end = end_range;
 }
 
-const int virtual_block::getSize()
+const bool virtual_block::isFree()
 {
-	return end - start + 1;
+	return free;
 }
 
 const bool virtual_block::inRange(int num)
@@ -46,7 +46,7 @@ const bool virtual_block::inRange(int num)
 	return false;
 }
 
-const bool virtual_block::isFree()
+const int virtual_block::getSize()
 {
-	return free;
+	return end - start + 1;
 }

@@ -33,14 +33,14 @@ class file: public node
 		// gets the file size
 		const int getSize();	
 
+		// sets the file size
+		void setSize(const unsigned int& mSize);
+
 		// gets the timestamp
 		const string getTime();
 
 		// sets the timestamp
 		void setTime();
-
-		// sets the file size
-		void setSize(const unsigned int& mSize);
 
 		// prints all the information about the file
 		const void printInfo();

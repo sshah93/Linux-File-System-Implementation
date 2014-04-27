@@ -14,6 +14,12 @@ file::~file()
 
 }
 
+void file::add_address(const unsigned int& block_size, const unsigned int& block_id)
+{
+	unsigned int address = block_size * block_id;
+	block_addresses.insert(pair<unsigned int, unsigned int>(block_id, address));
+}
+
 const string file::getName()
 {
 	return file_name;
@@ -47,17 +53,6 @@ void file::setTime()
 	timestamp = *localtime(&t);
 }
 
-map<unsigned int, unsigned int>* file::getMap()
-{
-	return &block_addresses;
-}
-
-void file::add_address(const unsigned int& block_size, const unsigned int& block_id)
-{
-	unsigned int address = block_size * block_id;
-	block_addresses.insert(pair<unsigned int, unsigned int>(block_id, address));
-}
-
 const void file::printInfo()
 {
 	cout << "file: " << file_name << "size: " << file_size << " total # of blocks used: " << block_addresses.size() << endl;
@@ -68,6 +63,11 @@ const void file::printInfo()
 	for(; iter != block_addresses.end(); iter++)
 		cout << iter->second << "-";
 	cout << endl << endl;
+}
+
+map<unsigned int, unsigned int>* file::getMap()
+{
+	return &block_addresses;
 }
 
 vector<int> file::get_last_n(int blocks)

@@ -3,7 +3,7 @@
 
 #include "header.h"
 
-// helper functions
+// helper functions that will be used in the entire project
 void stringSplit(const string& str, char delimiter, vector<string>& contents);
 bool both_are_spaces(char left, char right);
 

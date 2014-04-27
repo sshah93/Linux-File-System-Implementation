@@ -7,7 +7,7 @@ bool handleInput(string& input);
 // the only global variables
 // pointer to the new file system that will be created using the files and dirs
 file_system* new_file_system;
-// stores the current dir
+// storesult the current dir
 string current_dir;
 
 int main(int argc, char* argv[])
@@ -47,18 +47,15 @@ int main(int argc, char* argv[])
 	} 
 
 	string dir_list = argv[2];
-
 	string file_list = argv[3];
-
 	unsigned int disk_size = atoi(argv[5]);
+	unsigned int block_size = atoi(argv[7]);
 
 	if(!disk_size)
 	{
 		cout << "Invalid disk size. It has to be a number greater than 0" << endl;
 		return -1;
 	}
-
-	unsigned int block_size = atoi(argv[7]);
 
 	if(!block_size)
 	{
@@ -67,22 +64,21 @@ int main(int argc, char* argv[])
 	}
 
 	// local variables
-	bool res;
+	bool result;
 	string line;
 
 	new_file_system = new file_system(disk_size, block_size);
+	result = new_file_system->initialize_directories(dir_list);
 
-	res = new_file_system->initialize_directories(dir_list);
-
-	if(!res)
+	if(!result)
 	{
 		cout << "Well your dirs weren't initialize so too bad!" << endl;
 		return -1;
 	}	
 
-	res = new_file_system->initialize_files(file_list);
+	result = new_file_system->initialize_files(file_list);
 
-	if(!res)
+	if(!result)
 	{
 		cout << "Unable to initialize your files, might want to give increase block size" << endl;
 		return -1;
@@ -100,10 +96,11 @@ int main(int argc, char* argv[])
 	{
 		cout << "cs492@suketu:" << current_dir;
 		cout << "$ ";
+		
 		getline(cin, line);
-		res = handleInput(line); 
+		result = handleInput(line); 
 
-		if(!res)
+		if(!result)
 		{
 			break;
 		}
@@ -150,27 +147,19 @@ bool handleInput(string& input)
 			dir = current_dir;
 
 			if(dir.compare("/") != 0)
-			{
 				dir = dir.substr(0, dir.size()-1);
-			}
 		}
 
 		else
-		{
 			dir = current_dir + contents[1];
-		}
 
 		if(!new_file_system->setCurrentDir(dir))
-		{
 			cout << "Unable to change directory" << endl;
-		}	
 
 		else
 		{
 			if(dir.compare("/") != 0)
-			{
 				current_dir = dir + "/";
-			}
 		}
 	}
 

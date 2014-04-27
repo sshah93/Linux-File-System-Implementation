@@ -12,6 +12,7 @@ class virtual_block
 		bool free;
 
 	public:
+		// constructors and destructors
 		virtual_block(const int& start, const int& end, const bool& free);
 		virtual ~virtual_block();
 
@@ -24,8 +25,13 @@ class virtual_block
 		void setEnd(const unsigned int& end_range);
 
 		// helper functions 
+		// checks if the virtual block is free or not
 		const bool isFree();
+
+		// checks if the block that we need is enough 
 		const bool inRange(int);
+
+		// calculates the size of the virtual block
 		const int getSize();
 
 		// function to compare 2 virtual blocks
