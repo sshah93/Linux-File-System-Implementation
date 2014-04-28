@@ -61,7 +61,9 @@ void file::setTime()
 
 const void file::printInfo()
 {
-	cout << "file: " << file_name << " size: " << file_size << " total # of blocks used: " << block_addresses.size() << endl;
+	cout << "File: " << file_name << endl;
+	cout << "Size: " << file_size << endl;
+	cout << "Total # of blocks used: " << block_addresses.size() << endl;
 	cout << "block addresses: " << endl;
 
 	map<unsigned int, unsigned int>::iterator iter = block_addresses.begin();
