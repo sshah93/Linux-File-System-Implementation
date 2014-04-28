@@ -32,6 +32,9 @@ class file_system
 		// creating the file structure
 		bool file_struct();
 
+		// helper function to delete a directory
+		void deleteDir(const string& name);
+
 		// deletes range of virtual blocks
 		void remove_virtual_blocks_range(int start, int end);
 
@@ -48,7 +51,7 @@ class file_system
 		file* fileLookup(const string& unique_name);
 
 	public:
-		// constructor and destructor
+		// constructors and destructors
 		file_system(const unsigned int& disk_size, const unsigned int& block_size);
 		virtual ~file_system();
 

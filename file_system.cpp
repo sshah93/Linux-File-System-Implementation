@@ -77,6 +77,22 @@ bool file_system::file_struct()
 	return ret;
 }
 
+void file_system::deleteDir(const string& dir_name)
+{
+	map<string, node*>::iterator iter;
+
+	directory* parent = static_cast<directory*>(current_dir);
+
+	if(parent->getName() == "/")
+		iter = root_dir.find(parent->getName() + dir_name);
+
+	else
+		iter = root_dir.find(parent->getName() + "/" + dir_name);
+
+	if(iter != root_dir.end())
+		root_dir.erase(iter);
+}
+
 void file_system::remove_virtual_blocks_range(int start, int end)
 {
 	deque<blocks*>::iterator iter = disk_blocks.begin();
@@ -422,6 +438,13 @@ void file_system::ls()
 void file_system::removeFile(const string& child)
 {
 	directory* cur = dynamic_cast<directory*>(current_dir);
+	
+	file* pfile = fileLookup(child);
+
+	if(pfile != NULL)
+		takeAwayBytes(child, pfile->getSize());
+
+	deleteDir(child);
 	cur->removeChild(child);
 }
 
