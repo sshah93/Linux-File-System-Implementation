@@ -8,7 +8,7 @@ Assignment 3: File System Implementation
 
 /************************ Class protected helper functions ***********************************/
 
-bool file_system::build_directory_structure(const vector<string>& contents, const string& unique_name)
+bool file_system::dir_struct(const vector<string>& contents, const string& unique_name)
 {
 	bool ret = true;
 
@@ -65,7 +65,7 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 }
 
 //build Ldisk starting with all blocks as one contiguous blocks since they are all free.
-bool file_system::build_file_structure()
+bool file_system::file_struct()
 {
 	bool ret = true;
 
@@ -77,7 +77,7 @@ bool file_system::build_file_structure()
 	return ret;
 }
 
-void file_system::delete_range(int start, int end)
+void file_system::remove_virtual_blocks_range(int start, int end)
 {
 	deque<blocks*>::iterator iter = disk_blocks.begin();
 	
@@ -93,14 +93,14 @@ void file_system::delete_range(int start, int end)
 			disk_blocks.push_back(add);
 			add = new blocks(end+1, old_end, false);
 			disk_blocks.push_back(add);
-			merge();
+			join_virtual_blocks();
 			break;
 		}
 		iter++;
 	}
 }
 
-void file_system::merge()
+void file_system::join_virtual_blocks()
 {
 	sort(disk_blocks.begin(), disk_blocks.end(), &blocks::compare);
 	deque<blocks*>::iterator it = disk_blocks.begin();
@@ -199,11 +199,11 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 		}
 	}
 
-	merge();
+	join_virtual_blocks();
 	return ret;
 }
 
-const void file_system::print_directory(node* root)
+const void file_system::printDir(node* root)
 {
 	directory* parent = dynamic_cast<directory*>(root);
 	
@@ -219,7 +219,7 @@ const void file_system::print_directory(node* root)
 			if(!mynode)
 				cout << "error cannot cast to node..." << endl;
 			
-			print_directory(mynode);
+			printDir(mynode);
 		}
 	}
 
@@ -230,7 +230,7 @@ const void file_system::print_directory(node* root)
 	}
 }
 
-file* file_system::find_file(const string& unique_name)
+file* file_system::fileLookup(const string& unique_name)
 {
 	directory* parent = static_cast<directory*>(current_dir); 
 	vector<node*>* children = parent->getChildren();
@@ -279,10 +279,10 @@ file_system::~file_system()
 		delete *i_iter;
 }
 
-bool file_system::initialize_directories(const string &file_name)
+bool file_system::init_dirs(const string &file_name)
 {
 	// call the helper function
-	build_file_structure();
+	file_struct();
 	
 	bool ret = false;
 	string line;
@@ -307,7 +307,7 @@ bool file_system::initialize_directories(const string &file_name)
 
 			// cout << "LINE READ: " << line << endl;
 
-			build_directory_structure(contents, line);
+			dir_struct(contents, line);
 
 		}
 
@@ -320,7 +320,7 @@ bool file_system::initialize_directories(const string &file_name)
 	return ret;
 }
 
-bool file_system::initialize_files(const string &file_name)
+bool file_system::init_files(const string &file_name)
 {
 	bool ret = false;
 	
@@ -397,9 +397,9 @@ bool file_system::initialize_files(const string &file_name)
 	return ret;
 }
 
-const void file_system::print_directory()
+const void file_system::printDir()
 {
-	print_directory(root_dir.find("/")->second);
+	printDir(root_dir.find("/")->second);
 }
 
 bool file_system::setCurrentDir(const string & file)
@@ -413,20 +413,20 @@ bool file_system::setCurrentDir(const string & file)
 	return false;
 }
 
-void file_system::list()
+void file_system::ls()
 {
 	directory* cur = dynamic_cast<directory*>(current_dir);
 	cur->listChildren();
 }
 
-void file_system::remove(const string& child)
+void file_system::removeFile(const string& child)
 {
 	directory* cur = dynamic_cast<directory*>(current_dir);
 	cur->removeChild(child);
 }
 
 
-bool file_system::add_dir_under_current(const string &add, const string &unique)
+bool file_system::newDir(const string &add, const string &unique)
 {
 	bool ret = false;
 	
@@ -461,7 +461,7 @@ bool file_system::add_dir_under_current(const string &add, const string &unique)
 	return ret;
 }
 
-bool file_system::add_file_under_current(const string &add, const string &unique)
+bool file_system::newFile(const string &add, const string &unique)
 {
 	bool ret = false;
 
@@ -482,7 +482,7 @@ bool file_system::add_file_under_current(const string &add, const string &unique
 	return ret;
 }
 
-const void file_system::bfs_file_info()
+const void file_system::bfsFileInfo()
 {
 	queue<node*> bfs;
 	node* current(root_dir.find("/")->second);
@@ -521,7 +521,7 @@ const void file_system::bfs_file_info()
 	}
 }
 
-const void file_system::bfs_traverse()
+const void file_system::bfsTraverse()
 {
 	queue<node*> bfs;
 	node* current(root_dir.find("/")->second);
@@ -561,9 +561,9 @@ const void file_system::bfs_traverse()
 	}
 }
 
-const void file_system::print_blocks()
+const void file_system::printBlocks()
 {
-	merge();
+	join_virtual_blocks();
 	cout << endl << "LDISK structure..." << endl;
 	deque<blocks*>::iterator iter;
 	iter = disk_blocks.begin();
@@ -592,18 +592,18 @@ const void file_system::print_blocks()
 	}
 }
 
-const void file_system::print_disk_info()
+const void file_system::printDiskInfo()
 {
 	cout << "Total disk size: " <<  disk_size << endl;
 	cout << "Total blocks: " << total_blocks << endl;
 	cout << "Total used space (not including fragmentation): " << total_used_size  << endl;
 	cout << "Fragmentation: " << total_fragmentation << endl;
-	print_blocks();
+	printBlocks();
 }
 
-void file_system::remove_bytes_from_file(const string &unique, const unsigned int& bytes)
+void file_system::takeAwayBytes(const string &unique, const unsigned int& bytes)
 {
-	file* child(find_file(unique));
+	file* child(fileLookup(unique));
 
 	if(child == NULL)
 	{
@@ -646,15 +646,15 @@ void file_system::remove_bytes_from_file(const string &unique, const unsigned in
 	{
 		int end = blocks[i];
 		int start = blocks[++i];
-		delete_range(start, end);
+		remove_virtual_blocks_range(start, end);
 	}
 	
 	total_used_size = total_used_size-bytes;
 }
 
-void file_system::add_bytes_to_file(const string &unique, const unsigned int& bytes)
+void file_system::giveBytes(const string &unique, const unsigned int& bytes)
 {
-	file* child(find_file(unique));
+	file* child(fileLookup(unique));
 	
 	if(child == NULL)
 	{

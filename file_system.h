@@ -27,27 +27,25 @@ class file_system
 		deque<blocks*> disk_blocks;
 
 		// creating the directory structure
-		bool build_directory_structure(const vector<string>& contents, const string& unique_name);
+		bool dir_struct(const vector<string>& contents, const string& unique_name);
 
 		// creating the file structure
-		bool build_file_structure();
-
-		// bool move_blocks_to_free_node(vector<disk_block*> &blocks);
+		bool file_struct();
 
 		// deletes range of virtual blocks
-		void delete_range(int start, int end);
+		void remove_virtual_blocks_range(int start, int end);
 
 		// merges 2 empty/closed blocks together
-		void merge();
+		void join_virtual_blocks();
 
 		// updates from a file
 		bool handle_file_request(file* file, const unsigned int& space_requested);
 
 		// dfs 
-		const void print_directory(node* root);
+		const void printDir(node* root);
 
 		// helper function to find a file
-		file* find_file(const string& unique_name);
+		file* fileLookup(const string& unique_name);
 
 	public:
 		// constructor and destructor
@@ -55,44 +53,44 @@ class file_system
 		virtual ~file_system();
 
 		// used for creating the tree structure using the initial files provided
-		bool initialize_directories(const string& dir_list);
-		bool initialize_files(const string& file_list);
+		bool init_dirs(const string& dir_list);
+		bool init_files(const string& file_list);
 
 		// used to test dfs
-		const void print_directory();
+		const void printDir();
 
 		// helper function for cd case
 		bool setCurrentDir(const string& file);
 
 		// helper function for ls case
-		void list();
+		void ls();
 
 		// helper function for delete case
-		void remove(const string& file);
+		void removeFile(const string& file);
 
 		// helper function for mkdir case
-		bool add_dir_under_current(const string& add, const string& unique);
+		bool newDir(const string& add, const string& unique);
 
 		// helper function for create case
-		bool add_file_under_current(const string& add, const string& unique);
+		bool newFile(const string& add, const string& unique);
 
 		// helper function for bfs_traverse function
-		const void bfs_file_info();
+		const void bfsFileInfo();
 
 		// helper function for dir case
-		const void bfs_traverse();
+		const void bfsTraverse();
 
 		// helper function for prfiles case
-		const void print_blocks();
+		const void printBlocks();
 
 		// helper function for prdisk case
-		const void print_disk_info();
+		const void printDiskInfo();
 
 		// helper function for removing bytes from a file case
-		void remove_bytes_from_file(const string& unique, const unsigned int& bytes);
+		void takeAwayBytes(const string& unique, const unsigned int& bytes);
 
 		// helper function for adding bytes to a file case
-		void add_bytes_to_file(const string& unique, const unsigned int& bytes);
+		void giveBytes(const string& unique, const unsigned int& bytes);
 };
 
 #endif

@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 	string line;
 
 	new_file_system = new file_system(disk_size, block_size);
-	result = new_file_system->initialize_directories(dir_list);
+	result = new_file_system->init_dirs(dir_list);
 
 	if(!result)
 	{
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 		return -1;
 	}	
 
-	result = new_file_system->initialize_files(file_list);
+	result = new_file_system->init_files(file_list);
 
 	if(!result)
 	{
@@ -134,7 +134,7 @@ bool handleInput(string& input)
 
 		if(contents.size() != 2)
 		{
-			cout << "Incorrect input by the user!" << endl;
+			cout << "cd only takes 1 argument" << endl;
 			return -1;
 			//continue;
 		}
@@ -143,7 +143,7 @@ bool handleInput(string& input)
 		{
 			if(current_dir.compare("/") == 0)
 			{
-				cout << "Unable to change directory" << endl;
+				cout << "Can't change directory" << endl;
 				return -1;
 				//continue;
 			}
@@ -175,7 +175,7 @@ bool handleInput(string& input)
 	// ls case
 	else if(!input.find("ls"))
 	{
-		new_file_system->list();
+		new_file_system->ls();
 	}
 
 	// mkdir case
@@ -184,8 +184,21 @@ bool handleInput(string& input)
 		vector<string> contents;
 		stringSplit(input, ' ', contents);
 
-		string unique = current_dir + contents[1];
-		new_file_system->add_dir_under_current(contents[1], unique);
+		if(contents.size() < 2)
+		{
+			cout << "Not enough arguments" << endl;
+		}
+
+		else if(contents.size() > 2)
+		{
+			cout << "More then enough arguments" << endl;
+		}
+
+		else
+		{
+			string unique = current_dir + contents[1];
+			new_file_system->newDir(contents[1], unique);
+		}
 	}
 
 	// create case
@@ -194,8 +207,21 @@ bool handleInput(string& input)
 		vector<string> contents;
 		stringSplit(input, ' ', contents);
 
-		string unique = current_dir + contents[1];
-		new_file_system->add_file_under_current(contents[1], unique);
+		if(contents.size() < 2)
+		{
+			cout << "Not enough arguments" << endl;
+		}
+
+		else if(contents.size() > 2)
+		{
+			cout << "More then enough arguments" << endl;
+		}
+
+		else
+		{
+			string unique = current_dir + contents[1];
+			new_file_system->newFile(contents[1], unique);
+		}
 	}
 
 	// append case
@@ -204,13 +230,26 @@ bool handleInput(string& input)
 		vector<string> contents;
 		stringSplit(input, ' ', contents);
 
-		string unique = contents[1];
-		istringstream buffer(contents[2]);
+		if(contents.size() < 3)
+		{
+			cout << "Not enough arguments" << endl;
+		}
 
-		int size;
-		buffer >> size;
+		else if(contents.size() > 3)
+		{
+			cout << "More then enough arguments" << endl;
+		}
 
-		new_file_system->add_bytes_to_file(unique, size);
+		else
+		{
+			string unique = contents[1];
+			istringstream buffer(contents[2]);
+
+			int size;
+			buffer >> size;
+
+			new_file_system->giveBytes(unique, size);
+		}
 	}
 
 	// remove case
@@ -219,13 +258,26 @@ bool handleInput(string& input)
 		vector<string> contents;
 		stringSplit(input, ' ', contents);
 
-		string unique = contents[1];
-		istringstream buffer(contents[2]);
+		if(contents.size() < 3)
+		{
+			cout << "Not enough arguments" << endl;
+		}
 
-		int size;
-		buffer >> size;
+		else if(contents.size() > 3)
+		{
+			cout << "More then enough arguments" << endl;
+		}
 
-		new_file_system->remove_bytes_from_file(unique, size);
+		else
+		{
+			string unique = contents[1];
+			istringstream buffer(contents[2]);
+
+			int size;
+			buffer >> size;
+
+			new_file_system->takeAwayBytes(unique, size);
+		}
 	}
 
 	// delete case
@@ -234,8 +286,21 @@ bool handleInput(string& input)
 		vector<string> contents;
 		stringSplit(input, ' ', contents);
 
-		string unique = contents[1];
-		new_file_system->remove(unique);
+		if(contents.size() < 2)
+		{
+			cout << "Not enough arguments" << endl;
+		}
+
+		else if(contents.size() > 2)
+		{
+			cout << "More then enough arguments" << endl;
+		}
+
+		else
+		{
+			string unique = contents[1];
+			new_file_system->removeFile(unique);
+		}
 	}
 
 	// exit case
@@ -247,19 +312,19 @@ bool handleInput(string& input)
 	// dir case
 	else if(!input.find("dir"))
 	{
-		new_file_system->bfs_traverse();
+		new_file_system->bfsTraverse();
 	}
 
 	// prfiles case
 	else if(!input.find("prfiles"))
 	{
-		new_file_system->bfs_file_info();
+		new_file_system->bfsFileInfo();
 	}
 
 	// prdisk case
 	else if(!input.find("prdisk"))
 	{
-		new_file_system->print_disk_info();	
+		new_file_system->printDiskInfo();	
 	}
 
 	// unknown command
