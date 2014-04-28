@@ -187,7 +187,7 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 			disk_blocks.insert(it, add);
 		
 			for(int i = old_start; i <= new_end; i++)
-				myfile->add_address(block_size, i);
+				myfile->new_block_address(block_size, i);
 		
 			ret = true;
 
@@ -514,7 +514,7 @@ const void file_system::bfs_file_info()
 		else
 		{
 			file* myfile = dynamic_cast<file*>(current);
-			myfile->printInfo();
+			myfile->prfiles();
 		}
 
 		bfs.pop();
@@ -640,7 +640,7 @@ void file_system::remove_bytes_from_file(const string &unique, const unsigned in
 
 	cout << "removing: " << bytes << " bytes, and " << block << " blocks from " << child->getName() << endl;
 
-	vector<int> blocks = child->get_last_n(block);
+	vector<int> blocks = child->getNBytes(block);
 	
 	for(unsigned int i = 0; i < blocks.size(); i ++)
 	{

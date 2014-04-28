@@ -13,8 +13,8 @@ class file: public node
 {
 	protected:
 		// file attributes
-		string file_name;
-		unsigned int file_size;
+		string mName;
+		unsigned int mSize;
 		tm timestamp;
 
 		// each file has a unique list of block addresses, each block address is mapped to a block id
@@ -23,11 +23,11 @@ class file: public node
 
 	public:
 		// constructors and destructors
-		file(const string& file_name, const int& file_size);
+		file(const string& mName, const int& mSize);
 		virtual ~file();
 
 		// converts to the block address and adds it to the list of block addresses
-		void add_address(const unsigned int& block_size, const unsigned int& block_id);
+		void new_block_address(const unsigned int& block_size, const unsigned int& block_id);
 
 		// gets the file name
 		const string getName();
@@ -48,13 +48,13 @@ class file: public node
 		void setTime();
 
 		// prints all the information about the file
-		const void printInfo();
+		const void prfiles();
 
 		// gets the entire map of block addresses
-		std::map<unsigned int, unsigned int>* getMap();
+		std::map<unsigned int, unsigned int>* getBlockAddresses();
 
 		// gets the last n bytes
-		std::vector<int> get_last_n(int blocks);
+		std::vector<int> getNBytes(int blocks);
 };
 
 #endif

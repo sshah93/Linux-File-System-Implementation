@@ -8,8 +8,8 @@ Assignment 3: File System Implementation
 
 file::file(const string& fname, const int& size):
 	node(),
-	file_name(fname),
-	file_size(size)
+	mName(fname),
+	mSize(size)
 {
 	time_t t = time(0);
 	timestamp = *localtime(&t);
@@ -20,7 +20,7 @@ file::~file()
 
 }
 
-void file::add_address(const unsigned int& block_size, const unsigned int& block_id)
+void file::new_block_address(const unsigned int& block_size, const unsigned int& block_id)
 {
 	unsigned int address = block_size * block_id;
 	block_addresses.insert(pair<unsigned int, unsigned int>(block_id, address));
@@ -28,7 +28,7 @@ void file::add_address(const unsigned int& block_size, const unsigned int& block
 
 const string file::getName()
 {
-	return file_name;
+	return mName;
 }
 
 void setName(string fname)
@@ -38,12 +38,12 @@ void setName(string fname)
 
 const int file::getSize()
 {
-	return file_size;
+	return mSize;
 }
 
-void file::setSize(const unsigned int& mSize)
+void file::setSize(const unsigned int& size)
 {
-	file_size = mSize;
+	mSize = size;
 }
 
 const string file::getTime()
@@ -59,10 +59,10 @@ void file::setTime()
 	timestamp = *localtime(&t);
 }
 
-const void file::printInfo()
+const void file::prfiles()
 {
-	cout << "File: " << file_name << endl;
-	cout << "Size: " << file_size << endl;
+	cout << "File: " << mName << endl;
+	cout << "Size: " << mSize << endl;
 	cout << "Total # of blocks used: " << block_addresses.size() << endl;
 	cout << "block addresses: " << endl;
 
@@ -73,12 +73,12 @@ const void file::printInfo()
 	cout << endl << endl;
 }
 
-map<unsigned int, unsigned int>* file::getMap()
+map<unsigned int, unsigned int>* file::getBlockAddresses()
 {
 	return &block_addresses;
 }
 
-vector<int> file::get_last_n(int blocks)
+vector<int> file::getNBytes(int blocks)
 {
 	vector<int> result;
 	int num = blocks;
