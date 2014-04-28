@@ -1,3 +1,9 @@
+/*
+Suketu Shah
+CS-492-A
+Assignment 3: File System Implementation
+*/
+
 #include "file.h"
 
 file::file(const string& fname, const int& size):
@@ -55,7 +61,7 @@ void file::setTime()
 
 const void file::printInfo()
 {
-	cout << "file: " << file_name << "size: " << file_size << " total # of blocks used: " << block_addresses.size() << endl;
+	cout << "file: " << file_name << " size: " << file_size << " total # of blocks used: " << block_addresses.size() << endl;
 	cout << "block addresses: " << endl;
 
 	map<unsigned int, unsigned int>::iterator iter = block_addresses.begin();

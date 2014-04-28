@@ -1,3 +1,9 @@
+/*
+Suketu Shah
+CS-492-A
+Assignment 3: File System Implementation
+*/
+
 #ifndef _NODE_H_
 #define _NODE_H_
 

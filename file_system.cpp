@@ -1,3 +1,9 @@
+/*
+Suketu Shah
+CS-492-A
+Assignment 3: File System Implementation
+*/
+
 #include "file_system.h"
 
 /************************ Class protected helper functions ***********************************/
@@ -456,7 +462,7 @@ bool file_system::add_dir_under_current(const string &add, const string &unique)
 
 bool file_system::add_file_under_current(const string &add, const string &unique)
 {
-	bool ret = true;
+	bool ret = false;
 
 	directory* cur = dynamic_cast<directory*>(current_dir);
 	
@@ -465,6 +471,7 @@ bool file_system::add_file_under_current(const string &add, const string &unique
 		node* new_file = new file(add, 0);
 		cur->addChild(new_file);
 		cout << "adding file: " << add << endl;
+		ret = true;
 		root_dir.insert(pair<string, node*>(unique, new_file));
 	}
 

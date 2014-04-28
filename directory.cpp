@@ -1,3 +1,9 @@
+/*
+Suketu Shah
+CS-492-A
+Assignment 3: File System Implementation
+*/
+
 #include "directory.h"
 #include "file.h"
 
@@ -34,11 +40,11 @@ void directory::removeChild(const string& name)
 
 		if(parent)
 		{
-			if( (parent->getName().find("/" + name) != std::string::npos) 
+			if((parent->getName().find("/" + name) != std::string::npos) 
 					|| (parent->getName().find(name) != std::string::npos))
 			{
 				if(parent->getChildrenSize() > 0)
-					cout << "Stop trying to delete from a non-empty directory" << endl;
+					cout << "Directory is not empty" << endl;
 				
 				else
 				{

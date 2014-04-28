@@ -1,3 +1,9 @@
+/*
+Suketu Shah
+CS-492-A
+Assignment 3: File System Implementation
+*/
+
 #include "header.h"
 #include "node.h"
 #include "file_system.h"
@@ -72,7 +78,7 @@ int main(int argc, char* argv[])
 
 	if(!result)
 	{
-		cout << "Well your dirs weren't initialize so too bad!" << endl;
+		cout << "Unable to initialize the directories. Something went wrong!" << endl;
 		return -1;
 	}	
 
@@ -80,7 +86,7 @@ int main(int argc, char* argv[])
 
 	if(!result)
 	{
-		cout << "Unable to initialize your files, might want to give increase block size" << endl;
+		cout << "Unable to initialize your files, might want to give increase disk size" << endl;
 		return -1;
 	}
 
