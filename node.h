@@ -9,15 +9,18 @@ Assignment 3: File System Implementation
 
 #include "header.h"
 
-// helper functions that will be used in the entire project
-void stringSplit(const string& str, char delimiter, vector<string>& contents);
-bool both_are_spaces(char left, char right);
-
 class node
 {
 	public:
-		node();
-		virtual ~node();
+		node()
+		{
+
+		}
+		
+		virtual ~node()
+		{
+
+		}
 
 		virtual const string getName() = 0;
 };
