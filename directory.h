@@ -7,7 +7,6 @@ Assignment 3: File System Implementation
 #ifndef _DIRECTORY_H_
 #define _DIRECTORY_H_
 
-#include "header.h"
 #include "node.h"
 
 // helper functions that will be used in the entire project

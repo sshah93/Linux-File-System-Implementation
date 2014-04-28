@@ -7,7 +7,6 @@ Assignment 3: File System Implementation
 #ifndef _FILE_H_
 #define _FILE_H_
 
-#include "header.h"
 #include "node.h"
 
 class file: public node

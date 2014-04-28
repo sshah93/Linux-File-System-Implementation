@@ -7,7 +7,6 @@ Assignment 3: File System Implementation
 #ifndef _FILE_SYSTEM_H_
 #define _FILE_SYSTEM_H_
 
-#include "header.h"
 #include "node.h"
 #include "directory.h"
 #include "file.h"

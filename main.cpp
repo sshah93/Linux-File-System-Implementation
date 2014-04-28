@@ -4,7 +4,6 @@ CS-492-A
 Assignment 3: File System Implementation
 */
 
-#include "header.h"
 #include "node.h"
 #include "file_system.h"
 
@@ -90,13 +89,17 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	cout << "Finished preloading files and directories " << endl;
+	cout << endl << "Done loading files and directories " << endl << endl;
 
 	new_file_system->setCurrentDir("/");
 	current_dir = "/";
 
 	// cout << "Total dirs: " << endl;
 	// new_file_system->print_directory();
+
+	cout << "************************************************************************************************************" << endl;
+
+	cout << endl << "Here's your minishell: " << endl << endl;
 
 	while(1)
 	{

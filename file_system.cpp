@@ -24,7 +24,7 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 		root_dir.insert(pair<string, node*>(unique_name, add));
 
 		cout << "adding directory: " << unique_name << endl;
-		cout << "adding parent directory: " << "/" << endl;
+		// cout << "adding parent directory: " << "/" << endl;
 
 		return ret;
 	}
@@ -57,7 +57,7 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 			root_dir.insert(pair<string, node*>(dir, add));
 
 			cout << "adding directory: " << dir << endl;
-			cout << "of parent directory: " << parent <<endl;
+			// cout << "of parent directory: " << parent <<endl;
 			break;
 		}
 	}
@@ -179,6 +179,7 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 			}
 		
 			cout << "allocating blocks for file: " << myfile->getName() << "- total size: " << space_requested << "- total blocks: " << number_blocks << endl;
+			
 			int old_start = cur->getStart();
 			cur->setStart(old_start+number_blocks);
 			int new_end = old_start+(number_blocks-1);
@@ -287,7 +288,7 @@ bool file_system::initialize_directories(const string &file_name)
 	string line;
 	
 	ifstream directory_list(file_name.c_str(), ios::in);
-	cout << "opening file ... " << file_name << endl;
+	cout << endl << "opening file: " << file_name << endl << endl;
 
 	//add default root directory
 	node* add = new directory("/");
@@ -304,7 +305,7 @@ bool file_system::initialize_directories(const string &file_name)
 			stringSplit(line, '/', contents);
 			line.erase(line.begin());
 
-			cout << "LINE READ: " << line << endl;
+			// cout << "LINE READ: " << line << endl;
 
 			build_directory_structure(contents, line);
 
@@ -326,7 +327,7 @@ bool file_system::initialize_files(const string &file_name)
 	string line;
 	
 	ifstream file_list(file_name.c_str(), ios::in);
-	cout << "opening file ... " << file_name << endl;
+	cout << endl << "opening file: " << file_name << endl << endl;
 
 	if(file_list.is_open())
 	{
@@ -345,7 +346,7 @@ bool file_system::initialize_files(const string &file_name)
 			line.erase(new_end, line.end());
 			stringSplit(line, ' ', contents);
 
-			cout << "file read: " << contents[10] << " timestamp: " << contents[9] << "  size:" << contents[6] << endl;
+			// cout << "file read: " << contents[10] << " timestamp: " << contents[9] << "  size:" << contents[6] << endl;
 
 			string file_name = contents[10];
 			int pos = file_name.rfind("/");
@@ -383,8 +384,8 @@ bool file_system::initialize_files(const string &file_name)
 			else
 				cout << "error directory doesn't exist" << endl;
 			
-			cout << "file added: " << file_name << endl;
-			cout << "to parent directory " << parent << endl;
+			// cout << "file added: " << file_name << endl;
+			// cout << "to parent directory " << parent << endl;
 		}
 
 		ret = true;
@@ -563,7 +564,7 @@ const void file_system::bfs_traverse()
 const void file_system::print_blocks()
 {
 	merge();
-	cout << "LDISK structure..." << endl;
+	cout << endl << "LDISK structure..." << endl;
 	deque<blocks*>::iterator iter;
 	iter = disk_blocks.begin();
 
