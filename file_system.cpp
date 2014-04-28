@@ -160,29 +160,28 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 		
 		if(cur->isFree())
 		{
-			int blocks = 0;
+			int number_blocks = 0;
 			int old_size = myfile->getSize();
 		
 			if(block_size == 1)
-				blocks = (space_requested)/block_size;
+				number_blocks = (space_requested)/block_size;
 		
 			else if((old_size%block_size != 0) && (old_size != 0))
 			{
-				blocks = (space_requested)/block_size;
+				number_blocks = (space_requested)/block_size;
 				total_fragmentation = total_fragmentation - (space_requested%block_size);
 			}
 		
 			else
 			{
-				blocks = (space_requested+1)/block_size;
+				number_blocks = (space_requested+1)/block_size;
 				total_fragmentation = total_fragmentation + (space_requested%block_size);
 			}
 		
-			cout << "allocating blocks for file: " << myfile->getName() << "- total size: " << space_requested << "- total blocks: " << blocks << endl;
+			cout << "allocating blocks for file: " << myfile->getName() << "- total size: " << space_requested << "- total blocks: " << number_blocks << endl;
 			int old_start = cur->getStart();
-			cur->setStart(old_start+blocks);
-			int new_end = old_start+(blocks-1);
-			blocks* test;
+			cur->setStart(old_start+number_blocks);
+			int new_end = old_start+(number_blocks-1);
 			blocks* add = new blocks(old_start, new_end, false);
 			disk_blocks.insert(it, add);
 		
