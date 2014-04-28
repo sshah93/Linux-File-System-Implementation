@@ -13,9 +13,9 @@ class blocks
 {
 	protected:
 		// class attributes
-		int start;
-		int end;
-		bool free;
+		int mStart;
+		int mEnd;
+		bool mFree;
 
 	public:
 		// constructors and destructors
@@ -32,13 +32,13 @@ class blocks
 
 		// helper functions 
 		// checks if the virtual block is free or not
-		const bool isFree();
+		const bool isEmpty();
 
 		// checks if the block that we need is enough 
-		const bool inRange(int);
+		const bool inLine(int);
 
 		// calculates the size of the virtual block
-		const int getSize();
+		const int blockSz();
 
 		// function to compare 2 virtual blocks
 		static bool compare(blocks* left, blocks* right)

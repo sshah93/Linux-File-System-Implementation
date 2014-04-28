@@ -85,7 +85,7 @@ void file_system::delete_range(int start, int end)
 	{
 		blocks* cur = *iter;
 	
-		if(cur->inRange(start) && cur->inRange(end))
+		if(cur->inLine(start) && cur->inLine(end))
 		{
 			int old_end = cur->getEnd();
 			cur->setEnd(start-1);
@@ -110,7 +110,7 @@ void file_system::merge()
 		blocks* cur = *it;
 		blocks* next;
 		
-		if((*it)->getSize() <= 0)
+		if((*it)->blockSz() <= 0)
 		{
 			deque<blocks*>::iterator i = it;
 			delete *i;
@@ -129,7 +129,7 @@ void file_system::merge()
 		else
 			break;
 
-		if((cur->isFree() && next->isFree()) || (!cur->isFree() && !next->isFree()))
+		if((cur->isEmpty() && next->isEmpty()) || (!cur->isEmpty() && !next->isEmpty()))
 		{
 			next->setStart(cur->getStart());
 			disk_blocks.erase(it);
@@ -158,7 +158,7 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 	{
 		blocks* cur = *it;
 		
-		if(cur->isFree())
+		if(cur->isEmpty())
 		{
 			int number_blocks = 0;
 			int old_size = myfile->getSize();
@@ -569,7 +569,7 @@ const void file_system::print_blocks()
 
 	for(; iter != disk_blocks.end(); iter++)
 	{
-		if((*iter)->getSize() <= 0)
+		if((*iter)->blockSz() <= 0)
 		{
 			deque<blocks*>::iterator it = iter;
 			delete *it;
@@ -582,12 +582,12 @@ const void file_system::print_blocks()
 				continue;
 		}
 
-		string fr("FULL");
+		string fr = "Full";
 
-		if((*iter)->isFree())
-			fr = "FREE";
+		if((*iter)->isEmpty())
+			fr = "Free";
 
-		cout << "node: -with: " << (*iter)->getSize() << " contiguous " << fr << " blocks, range: " << (*iter)->getStart() << ":" << (*iter)->getEnd() << endl;
+		cout << "node: -with: " << (*iter)->blockSz() << " contiguous " << fr << " blocks, range: " << (*iter)->getStart() << ":" << (*iter)->getEnd() << endl;
 	}
 }
 

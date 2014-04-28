@@ -7,9 +7,9 @@ Assignment 3: File System Implementation
 #include "blocks.h"
 
 blocks::blocks(const int& start, const int& end, const bool& free):
-	start(start),
-	end(end),
-	free(free)
+	mStart(start),
+	mEnd(end),
+	mFree(free)
 {
 
 }
@@ -21,38 +21,38 @@ blocks::~blocks()
 
 int blocks::getStart()
 {
-	return start;
+	return mStart;
 }
 
 void blocks::setStart(const unsigned int& start_range)
 {
-	start = start_range;
+	mStart = start_range;
 }
 
 int blocks::getEnd()
 {
-	return end;
+	return mEnd;
 }
 
 void blocks::setEnd(const unsigned int& end_range)
 {
-	end = end_range;
+	mEnd = end_range;
 }
 
-const bool blocks::isFree()
+const bool blocks::isEmpty()
 {
-	return free;
+	return mFree;
 }
 
-const bool blocks::inRange(int num)
+const bool blocks::inLine(int num)
 {
-	if(num >= start && num <= end)
+	if(num >= mStart && num <= mEnd)
 		return true;
 
 	return false;
 }
 
-const int blocks::getSize()
+const int blocks::blockSz()
 {
-	return end - start + 1;
+	return mEnd - mStart + 1;
 }
