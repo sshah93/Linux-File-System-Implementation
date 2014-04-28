@@ -274,9 +274,12 @@ file_system::~file_system()
 
 bool file_system::initialize_directories(const string &file_name)
 {
+	// call the helper function
 	build_file_structure();
+	
 	bool ret = false;
 	string line;
+	
 	ifstream directory_list(file_name.c_str(), ios::in);
 	cout << "opening file ... " << file_name << endl;
 
@@ -300,6 +303,7 @@ bool file_system::initialize_directories(const string &file_name)
 			build_directory_structure(contents, line);
 
 		}
+
 		ret = true;
 	}
 
@@ -311,8 +315,10 @@ bool file_system::initialize_directories(const string &file_name)
 
 bool file_system::initialize_files(const string &file_name)
 {
-	bool ret(false);
+	bool ret = false;
+	
 	string line;
+	
 	ifstream file_list(file_name.c_str(), ios::in);
 	cout << "opening file ... " << file_name << endl;
 
@@ -335,11 +341,11 @@ bool file_system::initialize_files(const string &file_name)
 
 			cout << "file read: " << contents[10] << " timestamp: " << contents[9] << "  size:" << contents[6] << endl;
 
-			string file_name(contents[10]);
+			string file_name = contents[10];
 			int pos = file_name.rfind("/");
 			file_name.erase(0, pos+1);
 
-			string parent(contents[10]);
+			string parent = contents[10];
 			parent.erase(pos, string::npos);
 			parent.erase(0, 1);
 
@@ -349,13 +355,16 @@ bool file_system::initialize_files(const string &file_name)
 
 			if(root_dir.find(parent) != root_dir.end())
 			{
-				string fsize(contents[6]);
+				string fsize = contents[6];
 				istringstream buffer(fsize);
+				
 				int size;
 				buffer >> size;
+				
 				directory* pdir = static_cast<directory*>(root_dir.find(parent)->second);
 				node* myfile = new file(file_name, 0);
 				pdir->addChild(myfile);
+				
 				file* child = static_cast<file*>(myfile);
 
 				if(!handle_file_request(child, size))
@@ -368,10 +377,10 @@ bool file_system::initialize_files(const string &file_name)
 			else
 				cout << "error directory doesn't exist" << endl;
 			
-
 			cout << "file added: " << file_name << endl;
 			cout << "to parent directory " << parent << endl;
 		}
+
 		ret = true;
 	}
 
