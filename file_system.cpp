@@ -64,14 +64,14 @@ bool file_system::build_directory_structure(const vector<string>& contents, cons
 	return ret;
 }
 
-//build Ldisk starting with all blocks as one contiguous virtual_block since they are all free.
+//build Ldisk starting with all blocks as one contiguous blocks since they are all free.
 bool file_system::build_file_structure()
 {
 	bool ret = true;
 
 	cout << "Adding initial blocks, total blocks: " << total_blocks << endl;
 	
-	virtual_block* add = new virtual_block(0, total_blocks-1, true);
+	blocks* add = new blocks(0, total_blocks-1, true);
 	disk_blocks.push_back(add);
 
 	return ret;
@@ -79,19 +79,19 @@ bool file_system::build_file_structure()
 
 void file_system::delete_range(int start, int end)
 {
-	deque<virtual_block*>::iterator iter = disk_blocks.begin();
+	deque<blocks*>::iterator iter = disk_blocks.begin();
 	
 	while(iter != disk_blocks.end())
 	{
-		virtual_block* cur = *iter;
+		blocks* cur = *iter;
 	
 		if(cur->inRange(start) && cur->inRange(end))
 		{
 			int old_end = cur->getEnd();
 			cur->setEnd(start-1);
-			virtual_block* add = new virtual_block(start, end, true);
+			blocks* add = new blocks(start, end, true);
 			disk_blocks.push_back(add);
-			add = new virtual_block(end+1, old_end, false);
+			add = new blocks(end+1, old_end, false);
 			disk_blocks.push_back(add);
 			merge();
 			break;
@@ -102,17 +102,17 @@ void file_system::delete_range(int start, int end)
 
 void file_system::merge()
 {
-	sort(disk_blocks.begin(), disk_blocks.end(), &virtual_block::compare);
-	deque<virtual_block*>::iterator it = disk_blocks.begin();
+	sort(disk_blocks.begin(), disk_blocks.end(), &blocks::compare);
+	deque<blocks*>::iterator it = disk_blocks.begin();
 
 	for(; it != disk_blocks.end(); it++)
 	{
-		virtual_block* cur = *it;
-		virtual_block* next;
+		blocks* cur = *it;
+		blocks* next;
 		
 		if((*it)->getSize() <= 0)
 		{
-			deque<virtual_block*>::iterator i = it;
+			deque<blocks*>::iterator i = it;
 			delete *i;
 			disk_blocks.erase(i);
 			
@@ -152,11 +152,11 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 		return ret;
 	}
 
-	deque<virtual_block*>::iterator it = disk_blocks.begin();
+	deque<blocks*>::iterator it = disk_blocks.begin();
 
 	for(; it != disk_blocks.end(); it++)
 	{
-		virtual_block* cur = *it;
+		blocks* cur = *it;
 		
 		if(cur->isFree())
 		{
@@ -182,7 +182,8 @@ bool file_system::handle_file_request(file* myfile, const unsigned int& space_re
 			int old_start = cur->getStart();
 			cur->setStart(old_start+blocks);
 			int new_end = old_start+(blocks-1);
-			virtual_block* add = new virtual_block(old_start, new_end, false);
+			blocks* test;
+			blocks* add = new blocks(old_start, new_end, false);
 			disk_blocks.insert(it, add);
 		
 			for(int i = old_start; i <= new_end; i++)
@@ -272,7 +273,7 @@ file_system::~file_system()
 	for(iter = root_dir.begin(); iter != root_dir.end(); ++iter)
 		delete iter->second;
 
-	deque<virtual_block*>::iterator i_iter;
+	deque<blocks*>::iterator i_iter;
 
 	for(i_iter = disk_blocks.begin(); i_iter != disk_blocks.end(); ++i_iter)
 		delete *i_iter;
@@ -564,14 +565,14 @@ const void file_system::print_blocks()
 {
 	merge();
 	cout << "LDISK structure..." << endl;
-	deque<virtual_block*>::iterator iter;
+	deque<blocks*>::iterator iter;
 	iter = disk_blocks.begin();
 
 	for(; iter != disk_blocks.end(); iter++)
 	{
 		if((*iter)->getSize() <= 0)
 		{
-			deque<virtual_block*>::iterator it = iter;
+			deque<blocks*>::iterator it = iter;
 			delete *it;
 			disk_blocks.erase(it);
 

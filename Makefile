@@ -4,7 +4,7 @@
 #Homework 3 - File System Implementation
 
 NAME = filesystem
-SRC = directory.cpp file.cpp file_system.cpp main.cpp node.cpp virtual_block.cpp
+SRC = directory.cpp blocks.cpp file.cpp file_system.cpp main.cpp node.cpp blocks.cpp
 OBJ = $(SRC:.c=.o)
 RM = rm -f
 LIBS = -ggdb

@@ -4,12 +4,12 @@ CS-492-A
 Assignment 3: File System Implementation
 */
 
-#ifndef _VIRTUAL_BLOCK_H_
-#define _VIRTUAL_BLOCK_H_
+#ifndef _BLOCKS_H_
+#define _BLOCKS_H_
 
 #include "header.h"
 
-class virtual_block
+class blocks
 {
 	protected:
 		// class attributes
@@ -19,8 +19,8 @@ class virtual_block
 
 	public:
 		// constructors and destructors
-		virtual_block(const int& start, const int& end, const bool& free);
-		virtual ~virtual_block();
+		blocks(const int& start, const int& end, const bool& free);
+		virtual ~blocks();
 
 		// getters and setters for start
 		int getStart();
@@ -41,7 +41,7 @@ class virtual_block
 		const int getSize();
 
 		// function to compare 2 virtual blocks
-		static bool compare(virtual_block* left, virtual_block* right)
+		static bool compare(blocks* left, blocks* right)
 		{
 			return left->getStart() < right->getStart();
 		}

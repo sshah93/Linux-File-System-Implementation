@@ -11,7 +11,7 @@ Assignment 3: File System Implementation
 #include "node.h"
 #include "directory.h"
 #include "file.h"
-#include "virtual_block.h"
+#include "blocks.h"
 
 class file_system
 {
@@ -25,7 +25,7 @@ class file_system
 
 		node* current_dir;
 		map<string, node*> root_dir;
-		deque<virtual_block*> disk_blocks;
+		deque<blocks*> disk_blocks;
 
 		// creating the directory structure
 		bool build_directory_structure(const vector<string>& contents, const string& unique_name);
