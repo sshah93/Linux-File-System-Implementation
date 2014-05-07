@@ -1,6 +1,6 @@
 /*
 Suketu Shah
-CS-492-A
+ADVANCED WANG
 Assignment 3: File System Implementation
 */
 
